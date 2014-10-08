@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<base>
+	<item>
+		<id></id>
+		<name></name>
+		<description></description>
+		<place></place>
+		<picture></picture>
+		<date>
+			<value></value>
+		</date>
+		<keywords>
+			<value></value>
+		</keywords>
+		<child>
+			<id></id>
+			<name></name>
+		</child>
+	</item>
+</base>

@@ -35,12 +35,10 @@
 		<keywordsList>
 			<value>Religion</value>
 		</keywordsList>
-		<fatherList>
-			<father>
-				<id></id>
-				<name>Chapelle Saint-Gildas</name>
-			</father>
-		</fatherList>
+		<father>
+			<id></id>
+			<name>Chapelle Saint-Gildas</name>
+		</father>
 	</item>
 	<item>
 		<id></id>

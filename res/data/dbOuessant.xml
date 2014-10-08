@@ -2,19 +2,162 @@
 <base>
 	<item>
 		<id></id>
-		<name></name>
-		<description></description>
-		<place></place>
-		<picture></picture>
+		<name>Gwasked</name>
+		<url>http://fr.topic-topos.com/gwasked-ouessant</url>
+		<description>Gwasked désigne en breton les abris naturels. Un certain nombre d'entre eux ont été disséminés sur la surface de l'île d'Ouessant, en dehors des terres cultivables. Ainsi les moutons, laissés en liberté de la fin du mois de septembre au début de celui de février, peuvent s'abriter du vent. Construits comme des étoiles à trois branches, ils permettaient aux animaux de choisir le côté vers lequel se réfugier en fonction du vent. En pierres sèches ou en mottes de gazon, ces abris autrefois nombreux sont désormais plus rares. </description>
+		<Adress>
+			<place>Porz-Chilin</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_NIOU/gwasked-ouessant.jpg</picture>
 		<date>
-			<value></value>
+			<value>XX</value>
 		</date>
-		<keywords>
-			<value></value>
-		</keywords>
-		<child>
-			<id></id>
-			<name></name>
-		</child>
+		<keywordsList>
+			<value>Quotidien</value>
+			<value>Niou</value>
+		</keywordsList>
+	</item>
+	<item>
+		<id></id>
+		<name>Stèle</name>
+		<url>http://fr.topic-topos.com/stele-ouessant</url>
+		<description>Indiquant un lieu, lec'h, qui est aussi son nom en breton, cette stèle de l'âge du fer a été christianisée au Moyen Âge comme en témoigne la croix gravée au sommet. </description>
+		<Adress>
+			<place>Chapelle Saint-Gildas</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_RELIGION/stele-ouessant.jpg</picture>
+		<picture>textures/_RELIGION/stele-ouessant.png</picture>
+		<date>
+			<value>âge du fer</value>
+		</date>
+		<keywordsList>
+			<value>Religion</value>
+		</keywordsList>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Chapelle Saint-Gildas</name>
+			</father>
+		</fatherList>
+	</item>
+	<item>
+		<id></id>
+		<name>Caserne</name>
+		<url>http://fr.topic-topos.com/caserne-ouessant</url>
+		<description>Au début du XXe siècle, l'île d'Ouessant a servi de garnison à une compagnie d'hommes de troupe susceptibles d'assurer la défense du lieu en cas d'attaque. Des troupes disciplinaires sont établies dans une île dont la majorité des hommes valides, naviguant au long cours, étaient absents durant de longues périodes. De nombreux désordres, dont certains connurent des suites judiciaires, ont été provoqués par les militaires. Pendant la Seconde Guerre mondiale, les casernes sont occupées par l'armée allemande. </description>
+		<Adress>
+			<place>Stang-ar-Glan</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_BATIMENTS/caserne-ouessant.jpg</picture>
+		<picture>textures/_BATIMENTS/caserne-ouessant.png</picture>
+		<date>
+			<value>XX</value>
+		</date>
+		<keywordsList>
+			<value>Militaire</value>
+			<value>Batiment</value>
+		</keywordsList>
+	</item>
+	<item>
+		<id></id>
+		<name>Cheminée</name>
+		<url>http://fr.topic-topos.com/cheminee-ouessant</url>
+		<description>Cette cheminée, enfermée dans un placard, est d'un type qui se retrouve fréquemment sur l'île, et permet d'éviter les courants d'air. </description>
+		<Adress>
+			<place>Niou-Huella</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_NIOU/cheminee-ouessant.jpg</picture>
+		<date>
+			<value>XVIII</value>
+			<value>XIX</value>
+		</date>
+		<keywordsList>
+			<value>Quotidien</value>
+			<value>Niou</value>
+		</keywordsList>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Maison du Niou</name>
+			</father>
+		</fatherList>
+	</item>
+	<item>
+		<id></id>
+		<name>Crèche</name>
+		<url>http://fr.topic-topos.com/creche-ouessant</url>
+		<description>Ce bâtiment possède un toit à couverture d'argile. À l'origine, les maisons d'Ouessant étaient couvertes de chaume. La paille de seigle était lestée d'un peu d'argile, ce qui rendait le toit résistant aux vents violents fréquents sur l'île en hiver. L'ardoise a remplacé le chaume sur les maisons. Les mottes de gazon, taouarc'h, sont posées sur un lit de fougères et de ronces, à même la charpente, puis recouvertes d'une épaisse couche d'argile parfois mélangée à de la balle d'avoine ou à de la paille hachée. </description>
+		<Adress>
+			<place>Niou-Huella</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_NIOU/creche-ouessant.jpg</picture>
+		<picture>textures/_NIOU/creche-ouessant.png</picture>
+		<date>
+			<value>XIX</value>
+		</date>
+		<keywordsList>
+			<value>Quotidien</value>
+			<value>Niou</value>
+		</keywordsList>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Maison du Niou</name>
+			</father>
+		</fatherList>
+	</item>
+	<item>
+		<id></id>
+		<name>Ampoule</name>
+		<url>http://fr.topic-topos.com/ampoule-ouessant</url>
+		<description>Ce type d'ampoule à 6 kW/127 V a équipé le phare du Stiff jusqu'à ce qu'elle soit remplacée par des ampoules de bas voltage. </description>
+		<Adress>
+			<place>Phare de Créac'h</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_PHARES/ampoule-ouessant.jpg</picture>
+		<date>
+			<value>XX</value>
+		</date>
+		<keywordsList>
+			<value>Maritime</value>
+			<value>Phare</value>
+		</keywordsList>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Réflecteurs de phare</name>
+			</father>
+		</fatherList>
+	</item>	
+	<item>
+		<id></id>
+		<name>Tombe</name>
+		<url>http://fr.topic-topos.com/tombe-ouessant</url>
+		<description>Les tombes des curés d'Ouessant ou des prêtres originaires de l'île se trouvent dans un enclos à part. Elles sont regroupées autour d'un calvaire édifié en 1884 à la suite d'une mission. </description>
+		<Adress>
+			<place>Eglise Saint-Paul-Aurélien</place>
+			<city>Ouessant</city>
+		</Adress>
+		<picture>textures/_RELIGION/tombe-ouessant.jpg</picture>
+		<picture>textures/_RELIGION/tombe-ouessant.png</picture>
+		<date>
+			<value>XIX</value>
+		</date>
+		<keywordsList>
+			<value>Religion</value>
+			<value>Phare</value>
+		</keywordsList>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Eglise Saint-Paul-Aurélien</name>
+			</father>
+		</fatherList>
 	</item>
 </base>

@@ -77,10 +77,12 @@
 			<value>Quotidien</value>
 			<value>Niou</value>
 		</keywordsList>
-		<father>
-			<id></id>
-			<name>Maison du Niou</name>
-		</father>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Maison du Niou</name>
+			</father>
+		</fatherList>
 	</item>
 	<item>
 		<id></id>
@@ -100,10 +102,12 @@
 			<value>Quotidien</value>
 			<value>Niou</value>
 		</keywordsList>
-		<father>
-			<id></id>
-			<name>Maison du Niou</name>
-		</father>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Maison du Niou</name>
+			</father>
+		</fatherList>
 	</item>
 	<item>
 		<id></id>
@@ -122,10 +126,12 @@
 			<value>Maritime</value>
 			<value>Phare</value>
 		</keywordsList>
-		<father>
-			<id></id>
-			<name>Réflecteurs de phare</name>
-		</father>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Réflecteurs de phare</name>
+			</father>
+		</fatherList>
 	</item>	
 	<item>
 		<id></id>
@@ -145,9 +151,11 @@
 			<value>Religion</value>
 			<value>Phare</value>
 		</keywordsList>
-		<father>
-			<id></id>
-			<name>Eglise Saint-Paul-Aurélien</name>
-		</father>
+		<fatherList>
+			<father>
+				<id></id>
+				<name>Eglise Saint-Paul-Aurélien</name>
+			</father>
+		</fatherList>
 	</item>
 </base>

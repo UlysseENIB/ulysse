@@ -1,5 +1,5 @@
 /*
-* Boi.cpp
+* Boid.cpp
 *
 *  Created on: 1 oct. 2014
 *      Author: ifig

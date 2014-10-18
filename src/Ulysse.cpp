@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : 0.cpp
+// Name        : Ulysse.cpp
 // Author      : ifig
 // Version     :
 // Copyright   : copyright Ulysse team

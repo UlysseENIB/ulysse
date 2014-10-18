@@ -1,5 +1,5 @@
 /*
-* Boi.h
+* Boid.h
 *
 *  Created on: 1 oct. 2014
 *      Author: ifig

@@ -76,10 +76,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Boid.cpp" />
+    <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Ulysse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Boid.h" />
+    <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\Includes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

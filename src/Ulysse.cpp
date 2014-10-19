@@ -7,10 +7,17 @@
 //============================================================================
 
 #include "Boid.h"
+#include "Grid.h"
 #include <iostream>
-//#include <GL/GL.h>	//to remove on Windows
-//#include <GL/GLU.h>	//to remove on Windows
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <GLUT/glut.h>
+#else
+//#include <GL/gl.h>
 #include <GL/glut.h>
+#endif
+
 #include "stdio.h"
 #include "math.h"
 #include <random>
@@ -24,93 +31,109 @@ using namespace std;
 
 vector<Boid*> boids;
 
+Grid grid;
 
-void myInit (void)
+void myInit(void)
 {
-	 glClearColor(1.0,1.0,1.0,0.0); // sets background color to white
-	 glColor3f(0.0f,0.0f,0.0f); // setsthe drawing colour
-	 glPointSize(2.0); // sets a point to be 4x4 pixels
-	 glMatrixMode(GL_PROJECTION);
-	 glLoadIdentity();
-	 gluOrtho2D(0.0, 500.0, 0.0, 400.0); // the display area in world coordinates.
+	glClearColor(1.0, 1.0, 1.0, 0.0); // sets background color to white
+	glColor3f(0.0f, 0.0f, 0.0f); // setsthe drawing colour
+	glPointSize(2.0); // sets a point to be 4x4 pixels
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, 500.0, 0.0, 400.0); // the display area in world coordinates.
+	//gluPerspective(50.0, (float) 1200 / 700, 1, 1024);
+	//gluLookAt(0, 0, 400, 0, 0, 0, 0.0, 1.0, 0.0);
 }
 
 
 void display()
 {
-	 glClear(GL_COLOR_BUFFER_BIT); // clears the screen
-	 glBegin(GL_POINTS);
-	 for (int i = 0; i < boids.size(); i++)
-	 {
-		 if (boids[i]->getColor()=="red")
-		 {
-			 glColor3f(1.0f,0.0f,0.0f);
-		 }
-		 else
-			 glColor3f(0.0,0.0,0.0);
-		 glVertex2i (boids[i]->getX(), boids[i]->getY());
-	 }
-	 glEnd();
-	 glFlush(); // sends all output to display;
-	 glutSwapBuffers();
+	glClear(GL_COLOR_BUFFER_BIT); // clears the screen
+	glBegin(GL_POINTS);
+
+	std::vector< std::vector< std::vector< std::vector<Boid*> > > > BoidsXYZ = grid.getAllGrid();
+	for (int i = 0; i <= BoidsXYZ.size() - 1; i++) {
+		for (int j = 0; j<BoidsXYZ.at(i).size() - 1; j++) {
+			for (int k = 0; k<BoidsXYZ.at(i).at(j).size() - 1; k++) {
+				long int size = BoidsXYZ.at(i).at(j).at(k).size();
+				for (long int l = size - 1; l >= 0; l--) {
+					if (BoidsXYZ.at(i).at(j).at(k).at(l)->getColor() == "red") glColor3f(1.0f, 0.0f, 0.0f);
+					else glColor3f(0.0, 0.0, 0.0);
+					float* _position = BoidsXYZ.at(i).at(j).at(k).at(l)->position;
+					glVertex3i(_position[0], _position[1], 0);
+				}
+			}
+		}
+	}
+	glEnd();
+	glFlush(); // sends all output to display;
+	glutSwapBuffers();
 }
 
 void run(int value)
 {
 	srand(time(NULL));
-
-	/*vector<Boid*> boidsTmp = boids;
-
-	while (boidsTmp.size() != 0){
-		int i = rand() % boidsTmp.size();
-		boids[i]->move(boids);
-		boidsTmp.erase(boidsTmp.begin() + i);
-	}*/
-	for (int i = 0; i < boids.size(); i++)
-	{
-		boids[i]->move(boids);
+	std::vector< std::vector< std::vector< std::vector<Boid*> > > > BoidsXYZ = grid.getAllGrid();
+	for (int i = 0; i <= BoidsXYZ.size() - 1; i++) {
+		for (int j = 0; j<BoidsXYZ.at(i).size() - 1; j++) {
+			for (int k = 0; k<BoidsXYZ.at(i).at(j).size() - 1; k++) {
+				long int size = BoidsXYZ.at(i).at(j).at(k).size();
+				for (long int l = size - 1; l >= 0; l--) {
+					grid.updateOnGrid(BoidsXYZ.at(i).at(j).at(k).at(l), BoidsXYZ.at(i).at(j).at(k).at(l)->move(BoidsXYZ.at(i).at(j).at(k)));
+				}
+			}
+		}
 	}
-    glutPostRedisplay();
-    glutTimerFunc(10, run, 1);
+	glutPostRedisplay();
+	glutTimerFunc(10, run, 1);
 }
 
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-	glutInit (&argc, argv); // to initialize the toolkit;
-	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB); // sets the display mode
-	glutInitWindowSize (1200, 700); // sets the window size
-	glutInitWindowPosition (20, 50); // sets the starting position for the window
-	glutCreateWindow ("Ulysse"); // creates the window and sets the title
-    //glutFullScreen();           // making the window full screen
+	glutInit(&argc, argv); // to initialize the toolkit;
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); // sets the display mode
+	glutInitWindowSize(1200, 700); // sets the window size
+	glutInitWindowPosition(20, 50); // sets the starting position for the window
+	glutCreateWindow("Ulysse"); // creates the window and sets the title
+	//glutFullScreen();           // making the window full screen
 	myInit(); // additional initializations as necessary
 	glClear(GL_COLOR_BUFFER_BIT); // clears the screen
 
 	glutDisplayFunc(display);
 
 	//Initalise Boids
-	int spawn_count = 500; //number of boids
+	int spawn_count = 50; //number of boids
 
+	// Creation d'une grille. Cube de 10 de cote. Ajouter randomGeneration=true pour g»n»rer automatiquement une grille
+	grid.createGrid(6);
+	Boid *boids;
 	for (int i = 0; i < spawn_count; i++)
 	{
 		//random positionning
-		float x = rand()%500;
-		float y = rand()%400;
+		float x = static_cast<float>(rand() % 500);
+		float y = static_cast<float>(rand() % 500);
+		float z = static_cast<float>(rand() % 500);
+		//float z = 0;
 		cout << "x : " << x;
-		cout << " y : " << y << endl;
+		cout << " y : " << y;
+		cout << " z : " << z << endl;
 
 		//Boid(int id, float x, float y, float direction, float speed, string color)
-		double pi = atan(1)*4;
-		float angle = rand()%(360);
-		angle = angle/180 *pi;
-		float speed = (rand()%10+1);
-		float col = rand()%2;
+		double pi = atan(1) * 4;
+		float angleXY = rand() % (360);
+		angleXY = angleXY / 180 * pi;
+		//float angleZ = rand() % (360) / 180 * pi;
+		float angleZ = 0;
+		float speed = (rand() % 10 + 1);
+		float col = rand() % 2;
 		string couleur;
-		if (col==1)
-			couleur = "black";
-		else
-			couleur = "red";
-		boids.push_back(new Boid(i, x, y, angle, 5, couleur));
+		if (col == 1) couleur = "black";
+		else couleur = "red";
+
+		float _position[3] = { x, y, z };
+		boids = new Boid(i, _position, angleXY, angleZ, 5, couleur);
+		grid.addToGrid(boids);
 	}
 	run(1);
 

@@ -34,8 +34,8 @@ using namespace std;
 #define SCREEN_HEIGHT 700
 #define SCREEN_POSITION_X 50
 #define SCREEN_POSITION_Y 50
-#define CUBE_SIZE 30
-#define SPAWN_COUNT 100
+#define CUBE_SIZE 26
+#define SPAWN_COUNT 5000
 
 
 vector<Boid*> boids;
@@ -87,18 +87,20 @@ void run(int value)
 			for (unsigned int k = 0; k <= BoidsXYZ.at(i)->at(j)->size() - 1; k++) {
 				for (long int l = BoidsXYZ.at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
 					int _positionActuelleCase[3] = { i, j, k };
+					// Do Try and catch because with a lot of boids got some out_of_range_memory
 					try{
 						vector<Boid*> boidNeighbbor{};
 						for (int a = -1; a < 2; a++){
-							for (int b = -1; b < 2; b++){
-								for (int c = -1; c < 2; c++){
-									try{
-										for (long int all = BoidsXYZ.at(i + a)->at(j + b)->at(k + c)->size() - 1; all >= 0; all--){
-											boidNeighbbor.emplace_back(BoidsXYZ.at(i + a)->at(j + b)->at(k + c)->at(all));
+							if (!(a == -1 && i <= 0) && !(a == 1 && i >= BoidsXYZ.size() - 1)){
+								for (int b = -1; b < 2; b++){
+									if (!(b == -1 && j <= 0) && !(b == 1 && j >= BoidsXYZ.size() - 1)){
+										for (int c = -1; c < 2; c++){
+											if (!(c == -1 && k <= 0) && !(c == 1 && k >= BoidsXYZ.size() - 1)){
+												for (long int all = BoidsXYZ.at(i + a)->at(j + b)->at(k + c)->size() - 1; all >= 0; all--){
+													boidNeighbbor.emplace_back(BoidsXYZ.at(i + a)->at(j + b)->at(k + c)->at(all));
+												}
+											}
 										}
-									}
-									catch (exception e){
-									// DO NOTHING
 									}
 								}
 							}

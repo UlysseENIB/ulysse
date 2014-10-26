@@ -1,47 +1,16 @@
-﻿Build started 19/10/2014 22:16:18.
+﻿Build started 26/10/2014 15:14:07.
      1>Project "C:\Users\kristen\Desktop\Boids\Ulysse\Ulysse.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Boid.cpp src\Grid.cpp src\Ulysse.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Ulysse.cpp
          Ulysse.cpp
-     1>src\Ulysse.cpp(55): warning C4018: '<=' : signed/unsigned mismatch
-     1>src\Ulysse.cpp(56): warning C4018: '<' : signed/unsigned mismatch
-     1>src\Ulysse.cpp(57): warning C4018: '<' : signed/unsigned mismatch
-     1>src\Ulysse.cpp(77): warning C4018: '<=' : signed/unsigned mismatch
-     1>src\Ulysse.cpp(78): warning C4018: '<' : signed/unsigned mismatch
-     1>src\Ulysse.cpp(79): warning C4018: '<' : signed/unsigned mismatch
-         Boid.cpp
-     1>src\Boid.cpp(9): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>src\Boid.cpp(10): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>src\Boid.cpp(11): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>src\Boid.cpp(16): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>src\Boid.cpp(85): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(86): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(88): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(89): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(91): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(92): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(93): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Boid.cpp(117): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
-         Compiling...
-         Grid.cpp
-     1>src\Grid.cpp(37): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>src\Grid.cpp(38): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>src\Grid.cpp(43): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>src\Grid.cpp(50): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>src\Grid.cpp(51): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>src\Grid.cpp(97): warning C4018: '<' : signed/unsigned mismatch
-     1>src\Grid.cpp(149): warning C4018: '<=' : signed/unsigned mismatch
-     1>src\Grid.cpp(150): warning C4018: '<' : signed/unsigned mismatch
-     1>src\Grid.cpp(151): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.exe" /INCREMENTAL /NOLOGO opengl32.lib glut32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.lib" /MACHINE:X86 /ENTRY:"mainCRTStartup" Debug\Boid.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.exe" /INCREMENTAL /NOLOGO opengl32.lib glut32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.lib" /MACHINE:X86 /PROFILE /ENTRY:"mainCRTStartup" Debug\Boid.obj
          Debug\Grid.obj
          Debug\Ulysse.obj
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/PROFILE' specification
          Ulysse.vcxproj -> C:\Users\kristen\Desktop\Boids\Ulysse\Debug\Ulysse.exe
      1>Done Building Project "C:\Users\kristen\Desktop\Boids\Ulysse\Ulysse.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.07
+Time Elapsed 00:00:03.05

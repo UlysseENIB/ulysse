@@ -29,7 +29,7 @@ public:
 
 	float* move(vector <Boid*> boids); //computes new position
 
-	float distance(Boid *boid1, Boid *boid2); //distance between 2 boid
+	float getDistance(Boid *boid1, Boid *boid2); //distance between 2 boid
 
 	float distance_to_pos(float x, float y, float z); //distance between two points
 

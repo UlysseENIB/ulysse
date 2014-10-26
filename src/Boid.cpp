@@ -70,24 +70,30 @@ void Boid::flocking(vector <Boid*> boids){
 	float alignCount = 0;			//Stores the number of directions
 	for (unsigned int i = 0; i < boids.size(); i++)
 	{
-		if ((distance(this, boids[i]) < (RAYON_SEPARATION)) && (boids[i]->getId() != _id))
-		{
-			sepX += boids[i]->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
-			sepY += boids[i]->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
+		if (boids[i]->getId() != this->getId()){
+			float distance = getDistance(this, boids[i]);
+			if (distance < (RAYON_SEPARATION))
+			{
+				sepX += boids[i]->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
+				sepY += boids[i]->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
 
-			sepZ += boids[i]->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
-			sepCount++;
-		}
-		else if ((distance(this, boids[i]) < (RAYON_COHESION)) && (boids[i]->getId() != _id))
-		{
-			cohX += boids[i]->getX() + boids[i]->dirX(); //Add the boids[i] current X position
-			cohY += boids[i]->getY() + boids[i]->dirY(); //Add the boids[i] current Y position
-			cohZ += boids[i]->getZ() + boids[i]->dirZ(); //Add the boids[i] current Z position
-			cohCount++;
-			alignX += boids[i]->dirX();	//Add the boids[i] current movement X
-			alignY += boids[i]->dirY();	//Add the boids[i] current movement Y
-			alignZ += boids[i]->dirZ();	//Add the boids[i] current movement Z
-			alignCount++;
+				sepZ += boids[i]->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
+				sepCount++;
+			}
+			else if (distance < (RAYON_COHESION))
+			{
+				float dirXTmp = boids[i]->dirX();
+				float dirYTmp = boids[i]->dirY();
+				float dirZTmp = boids[i]->dirZ();
+				cohX += boids[i]->getX() + dirXTmp; //Add the boids[i] current X position
+				cohY += boids[i]->getY() + dirYTmp; //Add the boids[i] current Y position
+				cohZ += boids[i]->getZ() + dirZTmp; //Add the boids[i] current Z position
+				cohCount++;
+				alignX += dirXTmp;	//Add the boids[i] current movement X
+				alignY += dirYTmp;	//Add the boids[i] current movement Y
+				alignZ += dirZTmp;	//Add the boids[i] current movement Z
+				alignCount++;
+			}
 		}
 	}
 	cohesion(boids, cohX, cohY, cohZ, cohCount);
@@ -178,9 +184,10 @@ void Boid::alignment(vector <Boid*> boids, float alignX, float alignY, float ali
 /**
 * Distance between two boids
 */
-float Boid::distance(Boid *boid1, Boid *boid2)
+float Boid::getDistance(Boid *boid1, Boid *boid2)
 {
-	float dis = sqrt(pow((boid1->getX() - boid2->getX()), 2) + pow((boid1->getY() - boid2->getY()), 2) + pow((boid1->getZ() - boid2->getZ()), 2));
+	//float dis = sqrt(pow((boid1->getX() - boid2->getX()), 2) + pow((boid1->getY() - boid2->getY()), 2) + pow((boid1->getZ() - boid2->getZ()), 2));
+	float dis = sqrt((boid1->getX() - boid2->getX())*(boid1->getX() - boid2->getX()) + (boid1->getY() - boid2->getY())*(boid1->getY() - boid2->getY()) + (boid1->getZ() - boid2->getZ())*(boid1->getZ() - boid2->getZ()));
 	return dis;
 }
 

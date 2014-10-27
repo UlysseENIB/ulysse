@@ -7,17 +7,13 @@
 //
 
 #include "grid.h"
-#include <math.h>
-#include <thread>
-
-using namespace std;
 
 void Grid::createGrid(int nbCase, bool randomGeneration){
 	setNbCase(nbCase);
 	boidsParCases_vector = new std::vector<Boid*>();
-	BoidsX = new std::vector< std::vector<Boid*> *>();
-	BoidsXY = new std::vector< std::vector< std::vector<Boid*> *> *>();
-	BoidsXYZ = new std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *>();
+	boidsX = new std::vector< std::vector<Boid*> *>();
+	boidsXY = new std::vector< std::vector< std::vector<Boid*> *> *>();
+	boidsXYZ = new std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *>();
 	generateList(nbCase, nbCase, nbCase, randomGeneration);
 }
 
@@ -28,14 +24,14 @@ void Grid::createGrid(int nbCase, bool randomGeneration){
 void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration){
 
 	std::vector<Boid*> *_boidsParCases_vector;
-	std::vector< std::vector<Boid*> *> *_BoidsX_vector;
-	std::vector< std::vector< std::vector<Boid*> *> *> *_BoidsXY_vector;
+	std::vector< std::vector<Boid*> *> *_boidsX_vector;
+	std::vector< std::vector< std::vector<Boid*> *> *> *_boidsXY_vector;
 	long int id = 0;
 	float pi = (float) atan(1) * 4;
 	for (int boidsNumberRang = 0; boidsNumberRang<nbRang; boidsNumberRang++) {
-		_BoidsXY_vector = new std::vector< std::vector< std::vector<Boid*> *> *>();
+		_boidsXY_vector = new std::vector< std::vector< std::vector<Boid*> *> *>();
 		for (int boidsNumberColonne = 0; boidsNumberColonne<nbColonne; boidsNumberColonne++) {
-			_BoidsX_vector = new std::vector< std::vector<Boid*> *>();
+			_boidsX_vector = new std::vector< std::vector<Boid*> *>();
 			for (int boidsNumberLigne = 0; boidsNumberLigne<nbLigne; boidsNumberLigne++) {
 				_boidsParCases_vector = new std::vector<Boid*>();
 				for (int boidsNumberCase = 0; boidsNumberCase <= rand() % 20; boidsNumberCase++) {
@@ -58,11 +54,11 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 						_boidsParCases_vector->emplace(_boidsParCases_vector->end(), boids);
 					}
 				}
-				_BoidsX_vector->emplace(_BoidsX_vector->end(), _boidsParCases_vector);
+				_boidsX_vector->emplace(_boidsX_vector->end(), _boidsParCases_vector);
 			}
-			_BoidsXY_vector->emplace(_BoidsXY_vector->end(), _BoidsX_vector);
+			_boidsXY_vector->emplace(_boidsXY_vector->end(), _boidsX_vector);
 		}
-		BoidsXYZ->emplace(BoidsXYZ->end(), _BoidsXY_vector);
+		boidsXYZ->emplace(boidsXYZ->end(), _boidsXY_vector);
 	}
 	if (randomGeneration) updateOnGrid();
 }
@@ -81,16 +77,16 @@ void Grid::addToGrid(Boid *boids){
 void Grid::updateOnGrid(Boid *boids){
 
 	int* _numCase = determinerCase(boids->getPosition());
-	std::vector<Boid*> *_boidsParCases_vector = BoidsXYZ->at(_numCase[0])->at(_numCase[1])->at(_numCase[2]);
+	std::vector<Boid*> *_boidsParCases_vector = boidsXYZ->at(_numCase[0])->at(_numCase[1])->at(_numCase[2]);
 	_boidsParCases_vector->emplace(_boidsParCases_vector->begin(), boids);
 }
 
 void Grid::updateOnGrid(Boid *boids, float* position, int caseActuelle[3]){
 		int* _numCase = determinerCase(position);
 	
-		std::vector<Boid*> *_boidsParCases_vectorDelete = BoidsXYZ->at(caseActuelle[0])->at(caseActuelle[1])->at(caseActuelle[2]);
+		std::vector<Boid*> *_boidsParCases_vectorDelete = boidsXYZ->at(caseActuelle[0])->at(caseActuelle[1])->at(caseActuelle[2]);
 	
-			std::vector<Boid*> *_boidsParCases_vectorNew = BoidsXYZ->at(_numCase[0])->at(_numCase[1])->at(_numCase[2]);
+			std::vector<Boid*> *_boidsParCases_vectorNew = boidsXYZ->at(_numCase[0])->at(_numCase[1])->at(_numCase[2]);
 	
 	if (_numCase[0] == caseActuelle[0] && _numCase[1] == caseActuelle[1] && _numCase[2] == caseActuelle[2])
 	{
@@ -108,18 +104,34 @@ void Grid::updateOnGrid(Boid *boids, float* position, int caseActuelle[3]){
 	}
 }
 
+std::vector<Boid*> Grid::getNeighbors(int numCase[3]){
+	boidsNeighbors.clear();
+	for (int i = -1; i <= 1; i++) {
+		if (!(i == -1 && numCase[0] <= 0) && !(i == 1 && numCase[0] >= nbCaseGrid - 1)){
+			for (int j = -1; j <= 1; j++) {
+				if (!(j == -1 && numCase[1] <= 0) && !(j == 1 && numCase[1] >= nbCaseGrid - 1)){
+					for (int k = -1; k <= 1; k++) {
+						if (!(k == -1 && numCase[2] <= 0) && !(k == 1 && numCase[2] >= nbCaseGrid - 1))
+							boidsNeighbors.insert(boidsNeighbors.end(), boidsXYZ->at(numCase[0] + i)->at(numCase[1] + j)->at(numCase[2] + k)->begin(), boidsXYZ->at(numCase[0] + i)->at(numCase[1] + j)->at(numCase[2] + k)->end());
+					}
+				}
+			}
+		}
+	}
+	return boidsNeighbors;
+}
 void Grid::updateNumeroCase(Boid *boids, int numCase[3]){
 	boids->setNumeroCase(numCase);
 }
 
 void Grid::updateOnGrid(){
-	for (unsigned int i = 0; i <= BoidsXYZ->size() - 1; i++) {
-		for (unsigned int j = 0; j<BoidsXYZ->at(i)->size() - 1; j++) {
-			for (unsigned int k = 0; k<BoidsXYZ->at(i)->at(j)->size() - 1; k++) {
-				for (long int l = BoidsXYZ->at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
+	for (unsigned int i = 0; i <= boidsXYZ->size() - 1; i++) {
+		for (unsigned int j = 0; j<= boidsXYZ->at(i)->size() - 1; j++) {
+			for (unsigned int k = 0; k<= boidsXYZ->at(i)->at(j)->size() - 1; k++) {
+				for (long int l = boidsXYZ->at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
 					try {
-						updateOnGrid(BoidsXYZ->at(i)->at(j)->at(k)->at(l));
-						BoidsXYZ->at(i)->at(j)->at(k)->erase(BoidsXYZ->at(i)->at(j)->at(k)->begin() + l);
+						updateOnGrid(boidsXYZ->at(i)->at(j)->at(k)->at(l));
+						boidsXYZ->at(i)->at(j)->at(k)->erase(boidsXYZ->at(i)->at(j)->at(k)->begin() + l);
 					}
 					catch (std::out_of_range err) {
 						printf("ATTENTION -- no value here\n");

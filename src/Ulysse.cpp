@@ -8,35 +8,7 @@
 
 #include "Boid.h"
 #include "Grid.h"
-#include <iostream>
-#include <exception>
-
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <GLUT/glut.h>
-#else
-//#include <GL/gl.h>
-#include <GL/glut.h>
-#endif
-
-#include "stdio.h"
-#include "math.h"
-#include <random>
-#include <ctime>
-#include "Includes.h"
-
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-#define SCREEN_WIDTH 1200
-#define SCREEN_HEIGHT 700
-#define SCREEN_POSITION_X 50
-#define SCREEN_POSITION_Y 50
-#define CUBE_SIZE 26
-#define SPAWN_COUNT 5000
-
+#include "Global.h"
 
 vector<Boid*> boids;
 
@@ -49,7 +21,7 @@ void myInit(void)
 	glPointSize(5.0); // sets a point to be 4x4 pixels
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0.0, 500.0, 0.0, 400.0); // the display area in world coordinates.
+	gluOrtho2D(0.0, MAX_X, 0.0, MAX_Y); // the display area in world coordinates.
 	//gluPerspective(50.0, (float) 1200 / 700, 1, 1024);
 	//gluLookAt(0, 0, 400, 0, 0, 0, 0.0, 1.0, 0.0);
 }
@@ -88,25 +60,8 @@ void run(int value)
 				for (long int l = BoidsXYZ.at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
 					int _positionActuelleCase[3] = { i, j, k };
 					// Do Try and catch because with a lot of boids got some out_of_range_memory
-					try{
-						vector<Boid*> boidNeighbbor{};
-						for (int a = -1; a < 2; a++){
-							if (!(a == -1 && i <= 0) && !(a == 1 && i >= BoidsXYZ.size() - 1)){
-								for (int b = -1; b < 2; b++){
-									if (!(b == -1 && j <= 0) && !(b == 1 && j >= BoidsXYZ.size() - 1)){
-										for (int c = -1; c < 2; c++){
-											if (!(c == -1 && k <= 0) && !(c == 1 && k >= BoidsXYZ.size() - 1)){
-												for (long int all = BoidsXYZ.at(i + a)->at(j + b)->at(k + c)->size() - 1; all >= 0; all--){
-													boidNeighbbor.emplace_back(BoidsXYZ.at(i + a)->at(j + b)->at(k + c)->at(all));
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-						grid.updateOnGrid(BoidsXYZ.at(i)->at(j)->at(k)->at(l), BoidsXYZ.at(i)->at(j)->at(k)->at(l)->move(boidNeighbbor), _positionActuelleCase);
-						boidNeighbbor.empty();
+					try{						
+						grid.updateOnGrid(BoidsXYZ.at(i)->at(j)->at(k)->at(l), BoidsXYZ.at(i)->at(j)->at(k)->at(l)->move(grid.getNeighbors(_positionActuelleCase)), _positionActuelleCase);
 					}
 					catch (exception e){
 						// DO NOTHING
@@ -131,10 +86,7 @@ int main(int argc, char **argv)
 	glClear(GL_COLOR_BUFFER_BIT); // clears the screen
 
 	glutDisplayFunc(display);
-
-	//Initalise Boids
-	//int spawn_count = 1000; //number of boids
-
+	
 	// Creation d'une grille. Cube de 10 de cote. Ajouter randomGeneration=true pour g»n»rer automatiquement une grille
 	grid.createGrid(CUBE_SIZE);
 	Boid *boids;

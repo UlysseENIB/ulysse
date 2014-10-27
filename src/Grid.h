@@ -9,25 +9,23 @@
 #ifndef __boids__grid__
 #define __boids__grid__
 
-#include <stdio.h>
-#include <iostream>
 
-#include <list>
-#include <vector>
 #include "Boid.h"
+#include "Global.h"
 
 class Grid {
 
 private:
-	int tailleCube = 510;// max size position To change in function of the size of the screen
+	int tailleCube = max(max(MAX_X,MAX_Y),MAX_Z);// max size position To change in function of the size of the screen
 	int nbCaseGrid;
 	Boid *boids;
 
 	std::vector<Boid*> *boidsParCases_vector{};
-	std::vector< std::vector<Boid*> *> *BoidsX{};
-	std::vector< std::vector< std::vector<Boid*> *> *> *BoidsXY{};
+	std::vector< std::vector<Boid*> *> *boidsX{};
+	std::vector< std::vector< std::vector<Boid*> *> *> *boidsXY{};
 
 	int *positionInt = new int[3];
+	std::vector<Boid*> boidsNeighbors;
 
 	void updateNumeroCase(Boid *boids, int numCase[3]);
 	void generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration = false);
@@ -36,8 +34,10 @@ private:
 	void updateOnGrid(Boid *boids);
 
 public:
-	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> *BoidsXYZ{};
-	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> getAllGrid(){ return *BoidsXYZ; }
+	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> *boidsXYZ{};
+	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> getAllGrid(){ return *boidsXYZ; }
+
+	std::vector<Boid*> getNeighbors(int numCase[3]);
 
 	int* determinerCase(float* position);
 

@@ -6,12 +6,6 @@
 */
 #include "Boid.h"
 
-#define SEPARATION 0.09
-#define COHESION 0.28
-#define ALIGNEMENT 0.1
-
-#define RAYON_SEPARATION 10
-#define RAYON_COHESION 30
 
 Boid::Boid(long int id, float* position, int* nCase, float directionXY, float directionZ, float speed, string color) {
 	_id = id;
@@ -72,7 +66,7 @@ void Boid::flocking(vector <Boid*> boids){
 	{
 		if (boids[i]->getId() != this->getId()){
 			float distance = getDistance(this, boids[i]);
-			if (distance < (RAYON_SEPARATION))
+			if (distance < (RADIUS_SEPARATION))
 			{
 				sepX += boids[i]->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
 				sepY += boids[i]->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
@@ -80,7 +74,7 @@ void Boid::flocking(vector <Boid*> boids){
 				sepZ += boids[i]->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
 				sepCount++;
 			}
-			else if (distance < (RAYON_COHESION))
+			else if (distance < (RADIUS_COHESION))
 			{
 				float dirXTmp = boids[i]->dirX();
 				float dirYTmp = boids[i]->dirY();
@@ -96,9 +90,9 @@ void Boid::flocking(vector <Boid*> boids){
 			}
 		}
 	}
-	cohesion(boids, cohX, cohY, cohZ, cohCount);
-	separation(boids, sepX, sepY, sepZ, sepCount);
-	alignment(boids, alignX, alignY, alignZ, alignCount);
+	cohesion(cohX, cohY, cohZ, cohCount);
+	separation(sepX, sepY, sepZ, sepCount);
+	alignment(alignX, alignY, alignZ, alignCount);
 }
 
 /**
@@ -106,16 +100,16 @@ void Boid::flocking(vector <Boid*> boids){
 */
 void Boid::wall_bounce()
 {
-	if ((getX() < 2 && _newDX <0) || (498 < getX() && 0 < _newDX))
+	if ((getX() < 2 && _newDX <0) || (MAX_X+2 < getX() && 0 < _newDX))
 	{
 		_newDX = -_newDX;
 	}
 
-	if ((getY() < 2 && _newDY <0) || (398 < getY() && 0 < _newDY))
+	if ((getY() < 2 && _newDY <0) || (MAX_Y + 2 < getY() && 0 < _newDY))
 	{
 		_newDY = -_newDY;
 	}
-	if ((getZ() < 2 && _newDZ < 0) || (398 < getZ() && 0 < _newDZ))
+	if ((getZ() < 2 && _newDZ < 0) || (MAX_Z + 2 < getZ() && 0 < _newDZ))
 	{
 		_newDZ = -_newDZ;
 	}
@@ -124,7 +118,7 @@ void Boid::wall_bounce()
 /**
 * Performs separation
 */
-void Boid::separation(vector <Boid*> boids, float sepX, float sepY, float sepZ, float sepCount)
+void Boid::separation(float sepX, float sepY, float sepZ, float sepCount)
 {
 	if (sepCount > 0)	//Make sure there are some boids nearby before proceding
 	{
@@ -149,7 +143,7 @@ void Boid::separation(vector <Boid*> boids, float sepX, float sepY, float sepZ, 
 /**
 * Performs cohesion
 */
-void Boid::cohesion(vector <Boid*> boids, float cohX, float cohY, float cohZ, float cohCount)
+void Boid::cohesion(float cohX, float cohY, float cohZ, float cohCount)
 {
 	if (cohCount > 0)
 	{
@@ -168,7 +162,7 @@ void Boid::cohesion(vector <Boid*> boids, float cohX, float cohY, float cohZ, fl
 /**
 * Performs alignment
 */
-void Boid::alignment(vector <Boid*> boids, float alignX, float alignY, float alignZ, float alignCount)
+void Boid::alignment(float alignX, float alignY, float alignZ, float alignCount)
 {
 	if (alignCount > 0)
 	{

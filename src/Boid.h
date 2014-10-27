@@ -4,13 +4,10 @@
 *  Created on: 1 oct. 2014
 *      Author: ifig
 */
-#include "math.h"
-#include <string>
-#include <vector>
-#include <iostream>
-using namespace std;
 #ifndef BOID_H_
 #define BOID_H_
+
+#include "Global.h"
 
 class Boid {
 
@@ -34,9 +31,9 @@ public:
 	float distance_to_pos(float x, float y, float z); //distance between two points
 
 	void flocking(vector <Boid*> boids);
-	void separation(vector <Boid*> boids, float sepX, float sepY, float sepZ, float sepCount);
-	void cohesion(vector <Boid*> boids, float cohX, float cohY, float cohZ, float cohCount);
-	void alignment(vector <Boid*> boids, float alignX, float alignY, float alignZ, float alignCount);
+	void separation(float sepX, float sepY, float sepZ, float sepCount);
+	void cohesion(float cohX, float cohY, float cohZ, float cohCount);
+	void alignment(float alignX, float alignY, float alignZ, float alignCount);
 	void wall_bounce();
 
 	float dirX();

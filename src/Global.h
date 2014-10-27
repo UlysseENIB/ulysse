@@ -40,7 +40,7 @@ using namespace std;
 #define CUBE_SIZE 30
 
 // number of boids
-#define SPAWN_COUNT 1000
+#define SPAWN_COUNT 500
 
 // Force of boid's rules 
 #define SEPARATION 0.09

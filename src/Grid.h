@@ -25,7 +25,7 @@ private:
 	std::vector< std::vector< std::vector<Boid*> *> *> *boidsXY{};
 
 	int *positionInt = new int[3];
-	std::vector<Boid*> boidsNeighbors;
+	std::vector<Boid*> *boidsNeighbors{};
 
 	void updateNumeroCase(Boid *boids, int numCase[3]);
 	void generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration = false);
@@ -37,7 +37,7 @@ public:
 	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> *boidsXYZ{};
 	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> getAllGrid(){ return *boidsXYZ; }
 
-	std::vector<Boid*> getNeighbors(int numCase[3]);
+	std::vector<Boid*> *getNeighbors(int numCase[3]);
 
 	int* determinerCase(float* position);
 

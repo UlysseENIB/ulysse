@@ -24,13 +24,13 @@ public:
 	Boid(long int id, float* _position, int* _case, float directionXY, float directionZ, float speed, string color);
 	virtual ~Boid();
 
-	float* move(vector <Boid*> boids); //computes new position
+	float* move(vector <Boid*> *boids); //computes new position
 
 	float getDistance(Boid *boid1, Boid *boid2); //distance between 2 boid
 
 	float distance_to_pos(float x, float y, float z); //distance between two points
 
-	void flocking(vector <Boid*> boids);
+	void flocking(vector <Boid*> *boids);
 	void separation(float sepX, float sepY, float sepZ, float sepCount);
 	void cohesion(float cohX, float cohY, float cohZ, float cohCount);
 	void alignment(float alignX, float alignY, float alignZ, float alignCount);

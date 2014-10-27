@@ -14,6 +14,7 @@ void Grid::createGrid(int nbCase, bool randomGeneration){
 	boidsX = new std::vector< std::vector<Boid*> *>();
 	boidsXY = new std::vector< std::vector< std::vector<Boid*> *> *>();
 	boidsXYZ = new std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *>();
+	boidsNeighbors = new std::vector<Boid*>();
 	generateList(nbCase, nbCase, nbCase, randomGeneration);
 }
 
@@ -34,8 +35,9 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 			_boidsX_vector = new std::vector< std::vector<Boid*> *>();
 			for (int boidsNumberLigne = 0; boidsNumberLigne<nbLigne; boidsNumberLigne++) {
 				_boidsParCases_vector = new std::vector<Boid*>();
-				for (int boidsNumberCase = 0; boidsNumberCase <= rand() % 20; boidsNumberCase++) {
-					if (randomGeneration){
+				if (randomGeneration){
+					for (int boidsNumberCase = 0; boidsNumberCase <= rand() % 20; boidsNumberCase++) {
+					
 						float _position[3] = { static_cast<float>(rand() % 500), static_cast<float>(rand() % 400), static_cast<float>(rand() % 400) };
 						int col = rand() % 2;
 						string couleur;
@@ -82,11 +84,10 @@ void Grid::updateOnGrid(Boid *boids){
 }
 
 void Grid::updateOnGrid(Boid *boids, float* position, int caseActuelle[3]){
-		int* _numCase = determinerCase(position);
+	int* _numCase = determinerCase(position);
 	
-		std::vector<Boid*> *_boidsParCases_vectorDelete = boidsXYZ->at(caseActuelle[0])->at(caseActuelle[1])->at(caseActuelle[2]);
-	
-			std::vector<Boid*> *_boidsParCases_vectorNew = boidsXYZ->at(_numCase[0])->at(_numCase[1])->at(_numCase[2]);
+	std::vector<Boid*> *_boidsParCases_vectorDelete = boidsXYZ->at(caseActuelle[0])->at(caseActuelle[1])->at(caseActuelle[2]);
+	std::vector<Boid*> *_boidsParCases_vectorNew = boidsXYZ->at(_numCase[0])->at(_numCase[1])->at(_numCase[2]);
 	
 	if (_numCase[0] == caseActuelle[0] && _numCase[1] == caseActuelle[1] && _numCase[2] == caseActuelle[2])
 	{
@@ -104,15 +105,15 @@ void Grid::updateOnGrid(Boid *boids, float* position, int caseActuelle[3]){
 	}
 }
 
-std::vector<Boid*> Grid::getNeighbors(int numCase[3]){
-	boidsNeighbors.clear();
+std::vector<Boid*> *Grid::getNeighbors(int numCase[3]){
+	boidsNeighbors->clear();
 	for (int i = -1; i <= 1; i++) {
 		if (!(i == -1 && numCase[0] <= 0) && !(i == 1 && numCase[0] >= nbCaseGrid - 1)){
 			for (int j = -1; j <= 1; j++) {
 				if (!(j == -1 && numCase[1] <= 0) && !(j == 1 && numCase[1] >= nbCaseGrid - 1)){
 					for (int k = -1; k <= 1; k++) {
 						if (!(k == -1 && numCase[2] <= 0) && !(k == 1 && numCase[2] >= nbCaseGrid - 1))
-							boidsNeighbors.insert(boidsNeighbors.end(), boidsXYZ->at(numCase[0] + i)->at(numCase[1] + j)->at(numCase[2] + k)->begin(), boidsXYZ->at(numCase[0] + i)->at(numCase[1] + j)->at(numCase[2] + k)->end());
+							boidsNeighbors->insert(boidsNeighbors->end(), boidsXYZ->at(numCase[0] + i)->at(numCase[1] + j)->at(numCase[2] + k)->begin(), boidsXYZ->at(numCase[0] + i)->at(numCase[1] + j)->at(numCase[2] + k)->end());
 					}
 				}
 			}
@@ -120,6 +121,7 @@ std::vector<Boid*> Grid::getNeighbors(int numCase[3]){
 	}
 	return boidsNeighbors;
 }
+
 void Grid::updateNumeroCase(Boid *boids, int numCase[3]){
 	boids->setNumeroCase(numCase);
 }

@@ -29,7 +29,7 @@ Boid::~Boid() {
 /**
 * Move boids (perform behaviours)
 */
-float* Boid::move(vector <Boid*> boids)
+float* Boid::move(vector <Boid*> *boids)
 {
 	_newDX = (dirX() / (distance_to_pos(dirX(), dirY(), dirZ()))) * _speed;	//Sets the temporary direction of X (This is equal to, "ammount of X movement / distance between X & Y movement) * velocity")
 	_newDY = (dirY() / (distance_to_pos(dirX(), dirY(), dirZ()))) * _speed;	//Sets the temporary direction of Y (This is equal to, "ammount of Y movement / distance between X & Y movement) * velocity")
@@ -55,33 +55,33 @@ float* Boid::move(vector <Boid*> boids)
 /**
 * This function calls the other funcitons (separation, cohesion, alignement to create flocking
 */
-void Boid::flocking(vector <Boid*> boids){
+void Boid::flocking(vector <Boid*> *boids){
 	float sepX = 0, sepY = 0, sepZ = 0;	//Stores the average X/Y pos's
 	float sepCount = 0;		//Stores the number of pos's
 	float cohX = 0, cohY = 0, cohZ = 0;
 	float cohCount = 0;
 	float alignX = 0, alignY = 0, alignZ = 0;	//Stores the average X/Y direction
 	float alignCount = 0;			//Stores the number of directions
-	for (unsigned int i = 0; i < boids.size(); i++)
+	for (unsigned int i = 0; i < boids->size(); i++)
 	{
-		if (boids[i]->getId() != this->getId()){
-			float distance = getDistance(this, boids[i]);
+		if (boids->at(i)->getId() != this->getId()){
+			float distance = getDistance(this, boids->at(i));
 			if (distance < (RADIUS_SEPARATION))
 			{
-				sepX += boids[i]->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
-				sepY += boids[i]->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
+				sepX += boids->at(i)->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
+				sepY += boids->at(i)->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
 
-				sepZ += boids[i]->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
+				sepZ += boids->at(i)->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
 				sepCount++;
 			}
 			else if (distance < (RADIUS_COHESION))
 			{
-				float dirXTmp = boids[i]->dirX();
-				float dirYTmp = boids[i]->dirY();
-				float dirZTmp = boids[i]->dirZ();
-				cohX += boids[i]->getX() + dirXTmp; //Add the boids[i] current X position
-				cohY += boids[i]->getY() + dirYTmp; //Add the boids[i] current Y position
-				cohZ += boids[i]->getZ() + dirZTmp; //Add the boids[i] current Z position
+				float dirXTmp = boids->at(i)->dirX();
+				float dirYTmp = boids->at(i)->dirY();
+				float dirZTmp = boids->at(i)->dirZ();
+				cohX += boids->at(i)->getX() + dirXTmp; //Add the boids[i] current X position
+				cohY += boids->at(i)->getY() + dirYTmp; //Add the boids[i] current Y position
+				cohZ += boids->at(i)->getZ() + dirZTmp; //Add the boids[i] current Z position
 				cohCount++;
 				alignX += dirXTmp;	//Add the boids[i] current movement X
 				alignY += dirYTmp;	//Add the boids[i] current movement Y

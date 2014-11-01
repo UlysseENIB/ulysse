@@ -28,7 +28,6 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 	std::vector< std::vector<Boid*> *> *_boidsX_vector;
 	std::vector< std::vector< std::vector<Boid*> *> *> *_boidsXY_vector;
 	long int id = 0;
-	float pi = (float) atan(1) * 4;
 	for (int boidsNumberRang = 0; boidsNumberRang<nbRang; boidsNumberRang++) {
 		_boidsXY_vector = new std::vector< std::vector< std::vector<Boid*> *> *>();
 		for (int boidsNumberColonne = 0; boidsNumberColonne<nbColonne; boidsNumberColonne++) {
@@ -47,7 +46,7 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 							couleur = "red";
 
 						float angleXY =  rand() % 360;
-						angleXY = angleXY / 180 * pi;
+						angleXY = angleXY / 180 * PI;
 
 						float angleZ = 0;
 						int* _positionCase = determinerCase(_position);

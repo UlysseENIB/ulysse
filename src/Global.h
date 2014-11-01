@@ -50,3 +50,5 @@ using namespace std;
 //radius of boid
 #define RADIUS_SEPARATION 10
 #define RADIUS_COHESION 30
+
+#define PI atan(1) * 4

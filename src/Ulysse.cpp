@@ -8,11 +8,14 @@
 
 #include "Boid.h"
 #include "Grid.h"
+#include "Parser.h"
 #include "Global.h"
+
 
 vector<Boid*> boids;
 
 Grid grid;
+Parser parser;
 
 void myInit(void)
 {
@@ -31,15 +34,15 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT); // clears the screen
 	glBegin(GL_POINTS);
 
-	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> BoidsXYZ = grid.getAllGrid();
-	for (unsigned int i = 0; i <= BoidsXYZ.size() - 1; i++) {
-		for (unsigned int j = 0; j <= BoidsXYZ.at(i)->size() - 1; j++) {
-			for (unsigned int k = 0; k <= BoidsXYZ.at(i)->at(j)->size() - 1; k++) {
-				long int size = BoidsXYZ.at(i)->at(j)->at(k)->size();
+	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = grid.getAllGrid();
+	for (unsigned int i = 0; i <= boidsXYZ.size() - 1; i++) {
+		for (unsigned int j = 0; j <= boidsXYZ.at(i)->size() - 1; j++) {
+			for (unsigned int k = 0; k <= boidsXYZ.at(i)->at(j)->size() - 1; k++) {
+				long int size = boidsXYZ.at(i)->at(j)->at(k)->size();
 				for (long int l = size - 1; l >= 0; l--) {
-					if (BoidsXYZ.at(i)->at(j)->at(k)->at(l)->getColor() == "red") glColor3f(1.0f, 0.0f, 0.0f);
+					if (boidsXYZ.at(i)->at(j)->at(k)->at(l)->getColor() == "red") glColor3f(1.0f, 0.0f, 0.0f);
 					else glColor3f(0.0, 0.0, 0.0);
-					float* _position = BoidsXYZ.at(i)->at(j)->at(k)->at(l)->getPosition();
+					float* _position = boidsXYZ.at(i)->at(j)->at(k)->at(l)->getPosition();
 					glVertex3i(_position[0], _position[1], _position[2]);
 				}
 			}
@@ -53,19 +56,19 @@ void display()
 void run(int value)
 {
 	srand(time(NULL));
-	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> BoidsXYZ = grid.getAllGrid();
-	for (unsigned int i = 0; i <= BoidsXYZ.size() - 1; i++) {
-		for (unsigned int j = 0; j <= BoidsXYZ.at(i)->size() - 1; j++) {
-			for (unsigned int k = 0; k <= BoidsXYZ.at(i)->at(j)->size() - 1; k++) {
-				for (long int l = BoidsXYZ.at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
+	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = grid.getAllGrid();
+	for (unsigned int i = 0; i <= boidsXYZ.size() - 1; i++) {
+		for (unsigned int j = 0; j <= boidsXYZ.at(i)->size() - 1; j++) {
+			for (unsigned int k = 0; k <= boidsXYZ.at(i)->at(j)->size() - 1; k++) {
+				for (long int l = boidsXYZ.at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
 					int _positionActuelleCase[3] = { i, j, k };
 					// Do Try and catch because with a lot of boids got some out_of_range_memory
-					try{						
-						grid.updateOnGrid(BoidsXYZ.at(i)->at(j)->at(k)->at(l), BoidsXYZ.at(i)->at(j)->at(k)->at(l)->move(grid.getNeighbors(_positionActuelleCase)), _positionActuelleCase);
-					}
-					catch (exception e){
-						// DO NOTHING
-					}
+					//try{
+						grid.updateOnGrid(boidsXYZ.at(i)->at(j)->at(k)->at(l), boidsXYZ.at(i)->at(j)->at(k)->at(l)->move(grid.getNeighbors(_positionActuelleCase)), _positionActuelleCase);
+					//}
+					//catch (exception e){
+					//	// DO NOTHING
+					//}
 				}
 			}
 		}
@@ -86,9 +89,13 @@ int main(int argc, char **argv)
 	glClear(GL_COLOR_BUFFER_BIT); // clears the screen
 
 	glutDisplayFunc(display);
-	
+
 	// Creation d'une grille. Cube de 10 de cote. Ajouter randomGeneration=true pour g»n»rer automatiquement une grille
 	grid.createGrid(CUBE_SIZE);
+
+	(argv[1] != NULL) ? parser.parse(argv[1]) : parser.parse("res\\data\\Ulysse.xml");
+	//parse("res\\data\\Ulysse.xml");
+	
 	Boid *boids;
 	for (int i = 0; i < SPAWN_COUNT; i++)
 	{
@@ -97,14 +104,10 @@ int main(int argc, char **argv)
 		float y = static_cast<float>(rand() % 500);
 		//float z = static_cast<float>(rand() % 500);
 		float z = 0;
-		//        cout << "x : " << x;
-		//        cout << " y : " << y;
-		//        cout << " z : " << z << endl;
 
 		//Boid(int id, float x, float y, float direction, float speed, string color)
-		double pi = atan(1) * 4;
 		float angleXY = rand() % (360);
-		angleXY = angleXY / 180 * pi;
+		angleXY = angleXY / 180 * PI;
 		//float angleZ = rand() % (360) / 180 * pi;
 		float angleZ = 0;
 		float speed = (rand() % 10 + 1);

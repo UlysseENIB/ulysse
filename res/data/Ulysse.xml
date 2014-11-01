@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.3.0-dev
+- http://www.phpmyadmin.net
+-
+- Host: 192.168.30.23
+- Generation Time: Oct 22, 2014 at 08:47 AM
+- Server version: 5.5.37-0+wheezy1
+- PHP Version: 5.4.4-14+deb7u14
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="Ulysse" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="identite">
+                CREATE TABLE `identite` (
+                  `id-element` int(11) NOT NULL,
+                  `name` varchar(255) NOT NULL,
+                  `url` varchar(255) NOT NULL,
+                  `descrption` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id-element`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="localisation">
+                CREATE TABLE `localisation` (
+                  `id_element` int(11) NOT NULL,
+                  `lieu` varchar(255) NOT NULL,
+                  `gps` int(11) NOT NULL,
+                  `epoque` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id_element`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="mot-cle">
+                CREATE TABLE `mot-cle` (
+                  `id_mot_cle` int(11) NOT NULL,
+                  `id_element` int(11) NOT NULL,
+                  `mot_cle` varchar(255) NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="parent-enfants">
+                CREATE TABLE `parent-enfants` (
+                  `id_relation_pe` int(11) NOT NULL,
+                  `id_element` int(11) NOT NULL,
+                  `id_element_parent` int(11) NOT NULL,
+                  `id_element_enfant` int(11) NOT NULL,
+                  PRIMARY KEY (`id_relation_pe`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="semblable">
+                CREATE TABLE `semblable` (
+                  `id_relation_se` int(11) NOT NULL,
+                  `id_element` int(11) NOT NULL,
+                  `id_element_semblable` int(11) NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'Ulysse'
+    -->
+    <database name="Ulysse">
+        <!-- Table identite -->
+        <table name="identite">
+            <column name="id-element">0</column>
+            <column name="name">Maison du Niou</column>
+            <column name="url">http://fr.topic-topos.com/maison-du-niou-ouessant</column>
+            <column name="descrption">Cette maison est typique de l'architecture rurale de l'île. Les maisons sont en général regroupées en hameaux au centre d'un terroir agricole. Elles ne comportaient qu'un niveau d'habitation sous un toit de chaume, mais certaines d'entre elles ont été sur</column>
+        </table>
+        <table name="identite">
+            <column name="id-element">1</column>
+            <column name="name">Penn Brao</column>
+            <column name="url">http://fr.topic-topos.com/penn-brao-ouessant</column>
+            <column name="descrption">L'aménagement des maisons d'Ouessant utilise l'espace domestique comme s'il s'agissait de bateaux. Les meubles forment les cloisons et sont disposés le long de deux couloirs se croisant au centre de la maison. Les aires de stockage pour les récoltes et de</column>
+        </table>
+        <table name="identite">
+            <column name="id-element">2</column>
+            <column name="name">Cheminee</column>
+            <column name="url">http://fr.topic-topos.com/cheminee-ouessant</column>
+            <column name="descrption">Cette cheminée, enfermée dans un placard, est d'un type qui se retrouve fréquemment sur l'île, et permet d'éviter les courants d'air. </column>
+        </table>
+        <table name="identite">
+            <column name="id-element">3</column>
+            <column name="name">Puits de la maison du Niou</column>
+            <column name="url">http://fr.topic-topos.com/puits-de-la-maison-du-niou-ouessant</column>
+            <column name="descrption">La maison est le centre d'une petite exploitation agricole dont les différents éléments, comme ce puits, se répartissent dans des enclos entourant l'habitation. </column>
+        </table>
+        <table name="identite">
+            <column name="id-element">4</column>
+            <column name="name">Creche</column>
+            <column name="url">http://fr.topic-topos.com/creche-ouessant</column>
+            <column name="descrption">Ce bâtiment possède un toit à couverture d'argile. À l'origine, les maisons d'Ouessant étaient couvertes de chaume. La paille de seigle était lestée d'un peu d'argile, ce qui rendait le toit résistant aux vents violents fréquents sur l'île en hiver. L'ard</column>
+        </table>
+        <table name="identite">
+            <column name="id-element">5</column>
+            <column name="name">Costume de mariee</column>
+            <column name="url">http://fr.topic-topos.com/costume-de-mariee-1880-ouessant</column>
+            <column name="descrption">Le costume des femmes d'Ouessant est un assemblage de plusieurs éléments épinglés. La jupe, broz, est portée en général sur deux lourds jupons de drap de couleur bleu et rouge. Peu à peu, la coutume a fait que seul l'un des deux était porté avec un petit </column>
+        </table>
+        <!-- Table localisation -->
+        <table name="localisation">
+            <column name="id_element">0</column>
+            <column name="lieu">Niou-Hella</column>
+            <column name="gps">0</column>
+            <column name="epoque">XVIII - XIX</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">1</column>
+            <column name="lieu">Niou-Hella</column>
+            <column name="gps">0</column>
+            <column name="epoque">XIX</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">2</column>
+            <column name="lieu">Niou-Hella</column>
+            <column name="gps">0</column>
+            <column name="epoque">XVIII - XIX</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">3</column>
+            <column name="lieu">Niou-Hella</column>
+            <column name="gps">0</column>
+            <column name="epoque">XVIII - XIX</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">4</column>
+            <column name="lieu">Niou-Hella</column>
+            <column name="gps">0</column>
+            <column name="epoque">XIX</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">5</column>
+            <column name="lieu">Niou-Hella</column>
+            <column name="gps">0</column>
+            <column name="epoque">1880</column>
+        </table>
+        <!-- Table mot-cle -->
+        <table name="mot-cle">
+            <column name="id_mot_cle">0</column>
+            <column name="id_element">0</column>
+            <column name="mot_cle">bâtiment</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">1</column>
+            <column name="id_element">0</column>
+            <column name="mot_cle">quotidien</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">1</column>
+            <column name="id_element">1</column>
+            <column name="mot_cle">quotidien</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">1</column>
+            <column name="id_element">2</column>
+            <column name="mot_cle">quotidien</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">1</column>
+            <column name="id_element">3</column>
+            <column name="mot_cle">quotidien</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">0</column>
+            <column name="id_element">4</column>
+            <column name="mot_cle">bâtiment</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">1</column>
+            <column name="id_element">4</column>
+            <column name="mot_cle">quotidien</column>
+        </table>
+        <table name="mot-cle">
+            <column name="id_mot_cle">4</column>
+            <column name="id_element">5</column>
+            <column name="mot_cle">religieux</column>
+        </table>
+        <!-- Table parent-enfants -->
+        <table name="parent-enfants">
+            <column name="id_relation_pe">0</column>
+            <column name="id_element">0</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">1</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">1</column>
+            <column name="id_element">0</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">2</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">2</column>
+            <column name="id_element">0</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">3</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">3</column>
+            <column name="id_element">0</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">4</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">4</column>
+            <column name="id_element">0</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">5</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">5</column>
+            <column name="id_element">1</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">0</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">6</column>
+            <column name="id_element">2</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">0</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">7</column>
+            <column name="id_element">3</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">0</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">8</column>
+            <column name="id_element">4</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">0</column>
+        </table>
+        <table name="parent-enfants">
+            <column name="id_relation_pe">9</column>
+            <column name="id_element">5</column>
+            <column name="id_element_parent">0</column>
+            <column name="id_element_enfant">0</column>
+        </table>
+        <!-- Table semblable -->
+        <table name="semblable">
+            <column name="id_relation_se">0</column>
+            <column name="id_element">0</column>
+            <column name="id_element_semblable">1</column>
+        </table>
+        <table name="semblable">
+            <column name="id_relation_se">0</column>
+            <column name="id_element">1</column>
+            <column name="id_element_semblable">0</column>
+        </table>
+    </database>
+</pma_xml_export>

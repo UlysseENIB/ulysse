@@ -16,7 +16,7 @@
 class Grid {
 
 private:
-	int tailleCube = max(max(MAX_X,MAX_Y),MAX_Z);// max size position To change in function of the size of the screen
+	int tailleCube = max(max(MAX_X,MAX_Y),MAX_Z)+10;// max size position To change in function of the size of the screen
 	int nbCaseGrid;
 	Boid *boids;
 

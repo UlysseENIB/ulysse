@@ -50,12 +50,14 @@
       <Optimization>Disabled</Optimization>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <IntrinsicFunctions>false</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glut32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glut32.lib;glu32.lib;libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ENTRY:"mainCRTStartup" %(AdditionalOptions)</AdditionalOptions>
       <Profile>true</Profile>
     </Link>
@@ -76,15 +78,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Behavior.cpp" />
     <ClCompile Include="src\Boid.cpp" />
     <ClCompile Include="src\Grid.cpp" />
+    <ClCompile Include="src\Parser.cpp" />
     <ClCompile Include="src\Ulysse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Behavior.h" />
     <ClInclude Include="src\Boid.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\Includes.h" />
+    <ClInclude Include="src\Parser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="res\data\Ulysse.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

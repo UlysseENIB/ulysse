@@ -7,13 +7,10 @@
 #include "Boid.h"
 #include "Behavior.h"
 
-Boid::Boid(long int id, float* position, int* nCase, float directionXY, float directionZ, float speed, string color) {
+Boid::Boid(long int id, float* position, float directionXY, float directionZ, float speed, string color) {
 	_id = id;
 	for (int pos = 0; pos<3; pos++) {
 		_position[pos] = position[pos];
-	}
-	for (int poscas = 0; poscas<3; poscas++) {
-		_numeroCase[poscas] = nCase[poscas];
 	}
 	_directionXY = directionXY;
 	_directionZ = directionZ;
@@ -55,7 +52,7 @@ float Boid::getDistance(Boid *boid1, Boid *boid2)
 float Boid::distance_to_pos(float x, float y, float z)
 {
 	float distance;
-	(x==0 && y==0 && z==0) ? distance=0 : distance=sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+	(x==0 && y==0 && z==0) ? distance=0 : distance=sqrt(x*x + y*y + z*z);
 	return distance;
 }
 

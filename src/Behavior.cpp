@@ -44,24 +44,25 @@ float* Behavior::flocking(Boid* theBoid, vector <Boid*> *boids, float* futurePos
 	float alignCount = 0;			//Stores the number of directions
 	for (unsigned int i = 0; i < boids->size(); i++)
 	{
-		if (boids->at(i)->getId() != theBoid->getId()){
-			float distance = theBoid->getDistance(theBoid, boids->at(i));
+		Boid* boidAtI = boids->at(i);
+		if (boidAtI->getId() != theBoid->getId()){
+			float distance = theBoid->getDistance(theBoid, boidAtI);
 			if (distance < (RADIUS_SEPARATION))
 			{
-				sepX += boids->at(i)->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
-				sepY += boids->at(i)->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
+				sepX += boidAtI->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
+				sepY += boidAtI->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
 
-				sepZ += boids->at(i)->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
+				sepZ += boidAtI->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
 				sepCount++;
 			}
 			else if (distance < (RADIUS_COHESION))
 			{
-				float dirXTmp = boids->at(i)->dirX();
-				float dirYTmp = boids->at(i)->dirY();
-				float dirZTmp = boids->at(i)->dirZ();
-				cohX += boids->at(i)->getX() + dirXTmp; //Add the boids[i] current X position
-				cohY += boids->at(i)->getY() + dirYTmp; //Add the boids[i] current Y position
-				cohZ += boids->at(i)->getZ() + dirZTmp; //Add the boids[i] current Z position
+				float dirXTmp = boidAtI->dirX();
+				float dirYTmp = boidAtI->dirY();
+				float dirZTmp = boidAtI->dirZ();
+				cohX += boidAtI->getX() + dirXTmp; //Add the boids[i] current X position
+				cohY += boidAtI->getY() + dirYTmp; //Add the boids[i] current Y position
+				cohZ += boidAtI->getZ() + dirZTmp; //Add the boids[i] current Z position
 				cohCount++;
 				alignX += dirXTmp;	//Add the boids[i] current movement X
 				alignY += dirYTmp;	//Add the boids[i] current movement Y
@@ -150,7 +151,6 @@ float* Behavior::wall_bounce(Boid* theBoid, float* futurePosition)
 	{
 		futurePosition[0] = -futurePosition[0];
 	}
-
 	if ((theBoid->getY() < 5 && futurePosition[1] <0) || (MAX_Y-5 < theBoid->getY() && 0 < futurePosition[1]))
 	{
 		futurePosition[1] = -futurePosition[1];

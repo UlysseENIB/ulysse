@@ -27,7 +27,6 @@ private:
 	int *positionInt = new int[3];
 	std::vector<Boid*> *boidsNeighbors{};
 
-	void updateNumeroCase(Boid *boids, int numCase[3]);
 	void generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration = false);
 
 	// Permet de mettre ‡ jour la position dans la grille d'un seul boids.

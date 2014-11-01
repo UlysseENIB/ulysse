@@ -37,7 +37,7 @@ using namespace std;
 #define MAX_Z 400
 
 // define a cube of X*X*X
-#define CUBE_SIZE 30
+#define CUBE_SIZE 15
 
 // number of boids
 #define SPAWN_COUNT 500

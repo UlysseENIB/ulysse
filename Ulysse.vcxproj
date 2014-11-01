@@ -89,7 +89,6 @@
     <ClInclude Include="src\Boid.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\Grid.h" />
-    <ClInclude Include="src\Includes.h" />
     <ClInclude Include="src\Parser.h" />
   </ItemGroup>
   <ItemGroup>

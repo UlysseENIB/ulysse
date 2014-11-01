@@ -14,7 +14,6 @@ class Boid {
 
 private:
 	long int _id;
-	int _numeroCase[3];
 	float _position[3];
 	float _speed;
 	float _directionXY, _directionZ;
@@ -22,7 +21,7 @@ private:
 	string _color;
 	// --
 public:
-	Boid(long int id, float* position, int* nCase, float directionXY, float directionZ, float speed, string color);
+	Boid(long int id, float* position, float directionXY, float directionZ, float speed, string color);
 	virtual ~Boid();
 
 	float* move(vector <Boid*> *boids); //computes new position
@@ -53,12 +52,6 @@ public:
 	void setColor(string color){ _color = color; };
 	string getColor(){ return _color;}
 	//--
-	int* getNumeroCase(){ return _numeroCase; }
-	void setNumeroCase(int numeroCase[3]){
-		for (int numCase = 0; numCase<sizeof(_numeroCase) / sizeof(int); numCase++){
-			_numeroCase[numCase] = numeroCase[numCase];
-		}
-	}
 
 	float* getPosition(){ return _position; }
 	void setPosition(float newPosition[3]){

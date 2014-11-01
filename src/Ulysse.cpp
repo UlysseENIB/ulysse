@@ -57,18 +57,17 @@ void run(int value)
 {
 	srand(time(NULL));
 	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = grid.getAllGrid();
+	vector <Boid*>* boidNeighbor;
 	for (unsigned int i = 0; i <= boidsXYZ.size() - 1; i++) {
 		for (unsigned int j = 0; j <= boidsXYZ.at(i)->size() - 1; j++) {
 			for (unsigned int k = 0; k <= boidsXYZ.at(i)->at(j)->size() - 1; k++) {
-				for (long int l = boidsXYZ.at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
+				int l = boidsXYZ.at(i)->at(j)->at(k)->size() - 1;
+				if (l >= 0){
 					int _positionActuelleCase[3] = { i, j, k };
-					// Do Try and catch because with a lot of boids got some out_of_range_memory
-					//try{
-						grid.updateOnGrid(boidsXYZ.at(i)->at(j)->at(k)->at(l), boidsXYZ.at(i)->at(j)->at(k)->at(l)->move(grid.getNeighbors(_positionActuelleCase)), _positionActuelleCase);
-					//}
-					//catch (exception e){
-					//	// DO NOTHING
-					//}
+					boidNeighbor = grid.getNeighbors(_positionActuelleCase);
+					for (l; l >= 0; l--) {
+						grid.updateOnGrid(boidsXYZ.at(i)->at(j)->at(k)->at(l), boidsXYZ.at(i)->at(j)->at(k)->at(l)->move(boidNeighbor), _positionActuelleCase);
+					}
 				}
 			}
 		}
@@ -93,6 +92,7 @@ int main(int argc, char **argv)
 	// Creation d'une grille. Cube de 10 de cote. Ajouter randomGeneration=true pour g»n»rer automatiquement une grille
 	grid.createGrid(CUBE_SIZE);
 
+	// Parse file xml
 	(argv[1] != NULL) ? parser.parse(argv[1]) : parser.parse("res\\data\\Ulysse.xml");
 	//parse("res\\data\\Ulysse.xml");
 	
@@ -100,12 +100,11 @@ int main(int argc, char **argv)
 	for (int i = 0; i < SPAWN_COUNT; i++)
 	{
 		//random positionning
-		float x = static_cast<float>(rand() % 500);
-		float y = static_cast<float>(rand() % 500);
-		//float z = static_cast<float>(rand() % 500);
+		float x = static_cast<float>(rand() % MAX_X);
+		float y = static_cast<float>(rand() % MAX_Y);
+		//float z = static_cast<float>(rand() % MAX_Z);
 		float z = 0;
 
-		//Boid(int id, float x, float y, float direction, float speed, string color)
 		float angleXY = rand() % (360);
 		angleXY = angleXY / 180 * PI;
 		//float angleZ = rand() % (360) / 180 * pi;
@@ -117,8 +116,7 @@ int main(int argc, char **argv)
 		else couleur = "red";
 
 		float _position[3] = { x, y, z };
-		int* _positionCase = grid.determinerCase(_position);
-		boids = new Boid(i, _position, _positionCase, angleXY, angleZ, 5, couleur);
+		boids = new Boid(i, _position, angleXY, angleZ, 5, couleur);
 		grid.addToGrid(boids);
 	}
 	run(1);

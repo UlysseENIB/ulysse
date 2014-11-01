@@ -10,6 +10,10 @@
 #include "Boid.h"
 #include "Grid.h"
 #include "Global.h"
+
+//
+// MAYBE TO DELETE
+//
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 

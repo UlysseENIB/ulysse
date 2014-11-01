@@ -19,7 +19,7 @@ void Grid::createGrid(int nbCase, bool randomGeneration){
 }
 
 /**
-* Cr»ation d'une grille avec un nomber bnbLigne de ligne et nbColonne de colonne
+* Cr»ation d'une grille avec un nomber nbLigne de ligne et nbColonne de colonne
 * Les boids sont par la suite al»atoirement r»partis dans l'espace
 */
 void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration){
@@ -35,6 +35,9 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 			for (int boidsNumberLigne = 0; boidsNumberLigne<nbLigne; boidsNumberLigne++) {
 				_boidsParCases_vector = new std::vector<Boid*>();
 				if (randomGeneration){
+					//
+					// TO CHANGE : MISS POSITION Z
+					//
 					for (int boidsNumberCase = 0; boidsNumberCase <= rand() % 20; boidsNumberCase++) {
 					
 						float _position[3] = { static_cast<float>(rand() % 500), static_cast<float>(rand() % 400), static_cast<float>(rand() % 400) };
@@ -49,8 +52,7 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 						angleXY = angleXY / 180 * PI;
 
 						float angleZ = 0;
-						int* _positionCase = determinerCase(_position);
-						boids = new Boid(id, _position, _positionCase, angleXY, angleZ, 5, couleur);
+						boids = new Boid(id, _position, angleXY, angleZ, 5, couleur);
 						id++;
 						_boidsParCases_vector->emplace(_boidsParCases_vector->end(), boids);
 					}
@@ -119,10 +121,6 @@ std::vector<Boid*> *Grid::getNeighbors(int numCase[3]){
 		}
 	}
 	return boidsNeighbors;
-}
-
-void Grid::updateNumeroCase(Boid *boids, int numCase[3]){
-	boids->setNumeroCase(numCase);
 }
 
 void Grid::updateOnGrid(){

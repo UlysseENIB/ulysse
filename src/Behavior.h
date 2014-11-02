@@ -11,12 +11,22 @@
 class Behavior
 {
 public:
+	//computes new position
+	float* move(Boid* theboid, vector <Boid*> *boids); 
 
-	float* move(Boid* theboid, vector <Boid*> *boids); //computes new position*void flocking(vector <Boid*> *boids);
+	//apply rules of Boid's Reynold
 	float* flocking(Boid* theBoid, vector <Boid*> *boids, float* futurePosition);
+	
+	// rule separation
 	float* separation(Boid* theboid, float sepX, float sepY, float sepZ, float sepCoun0t, float* futurePosition);
+	
+	//rule cohesion
 	float* cohesion(Boid* theboid, float cohX, float cohY, float cohZ, float cohCount, float* futurePosition);
+	
+	//rule alignement
 	float* alignment(Boid* theboid, float alignX, float alignY, float alignZ, float alignCount, float* futurePosition);
+	
+	//apply one bounce on a wall
 	float* wall_bounce(Boid* theboid, float* futurePosition);
 };
 

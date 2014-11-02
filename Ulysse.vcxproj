@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="src\Behavior.cpp" />
     <ClCompile Include="src\Boid.cpp" />
+    <ClCompile Include="src\DataBaseResources.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Parser.cpp" />
     <ClCompile Include="src\Ulysse.cpp" />
@@ -87,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="src\Behavior.h" />
     <ClInclude Include="src\Boid.h" />
+    <ClInclude Include="src\DataBaseResources.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\Parser.h" />

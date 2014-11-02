@@ -1,9 +1,10 @@
 /*
-* Boid.h
+* Global.h
 *
 *  Created on: 2014
 *      Author: kristen
 */
+#pragma once
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -37,7 +38,7 @@ using namespace std;
 #define MAX_Z 400
 
 // define a cube of X*X*X
-#define CUBE_SIZE 15
+#define CUBE_SIZE 1
 
 // number of boids
 #define SPAWN_COUNT 500

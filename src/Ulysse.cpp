@@ -14,8 +14,8 @@
 
 vector<Boid*> boids;
 
-Grid grid;
-Parser parser;
+//Grid grid;
+Parser* parser = new Parser();
 
 void myInit(void)
 {
@@ -34,7 +34,7 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT); // clears the screen
 	glBegin(GL_POINTS);
 
-	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = grid.getAllGrid();
+	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = parser->grid.getAllGrid();
 	for (unsigned int i = 0; i <= boidsXYZ.size() - 1; i++) {
 		for (unsigned int j = 0; j <= boidsXYZ.at(i)->size() - 1; j++) {
 			for (unsigned int k = 0; k <= boidsXYZ.at(i)->at(j)->size() - 1; k++) {
@@ -56,7 +56,7 @@ void display()
 void run(int value)
 {
 	srand(time(NULL));
-	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = grid.getAllGrid();
+	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = parser->grid.getAllGrid();
 	vector <Boid*>* boidNeighbor;
 	for (unsigned int i = 0; i <= boidsXYZ.size() - 1; i++) {
 		for (unsigned int j = 0; j <= boidsXYZ.at(i)->size() - 1; j++) {
@@ -64,9 +64,9 @@ void run(int value)
 				int l = boidsXYZ.at(i)->at(j)->at(k)->size() - 1;
 				if (l >= 0){
 					int _positionActuelleCase[3] = { i, j, k };
-					boidNeighbor = grid.getNeighbors(_positionActuelleCase);
+					boidNeighbor = parser->grid.getNeighbors(_positionActuelleCase);
 					for (l; l >= 0; l--) {
-						grid.updateOnGrid(boidsXYZ.at(i)->at(j)->at(k)->at(l), boidsXYZ.at(i)->at(j)->at(k)->at(l)->move(boidNeighbor), _positionActuelleCase);
+						parser->grid.updateOnGrid(boidsXYZ.at(i)->at(j)->at(k)->at(l), boidsXYZ.at(i)->at(j)->at(k)->at(l)->move(boidNeighbor), _positionActuelleCase);
 					}
 				}
 			}
@@ -89,36 +89,37 @@ int main(int argc, char **argv)
 
 	glutDisplayFunc(display);
 
-	// Creation d'une grille. Cube de 10 de cote. Ajouter randomGeneration=true pour gÈnÈrer automatiquement une grille
-	grid.createGrid(CUBE_SIZE);
+	// Creation d'une grille. Cube de 10 de cote. Ajouter randomGeneration=true pour generer automatiquement une grille
+	//grid.createGrid(CUBE_SIZE);
 
 	// Parse file xml
-	(argv[1] != NULL) ? parser.parse(argv[1]) : parser.parse("res\\data\\Ulysse.xml");
-	//parse("res\\data\\Ulysse.xml");
+	(argv[1] != NULL) ? parser->parse(argv[1]) : parser->parse("res\\data\\Ulysse.xml");
 	
-	Boid *boids;
-	for (int i = 0; i < SPAWN_COUNT; i++)
-	{
-		//random positionning
-		float x = static_cast<float>(rand() % MAX_X);
-		float y = static_cast<float>(rand() % MAX_Y);
-		//float z = static_cast<float>(rand() % MAX_Z);
-		float z = 0;
+	//parse("res\\data\\Ulysse.xml");
+	//
+	//Boid *boids;
+	//for (int i = 0; i < SPAWN_COUNT; i++)
+	//{
+	//	//random positionning
+	//	float x = static_cast<float>(rand() % MAX_X);
+	//	float y = static_cast<float>(rand() % MAX_Y);
+	//	//float z = static_cast<float>(rand() % MAX_Z);
+	//	float z = 0;
 
-		float angleXY = rand() % (360);
-		angleXY = angleXY / 180 * PI;
-		//float angleZ = rand() % (360) / 180 * pi;
-		float angleZ = 0;
-		float speed = (rand() % 10 + 1);
-		float col = rand() % 2;
-		string couleur;
-		if (col == 1) couleur = "black";
-		else couleur = "red";
+	//	float angleXY = rand() % (360);
+	//	angleXY = angleXY / 180 * PI;
+	//	//float angleZ = rand() % (360) / 180 * pi;
+	//	float angleZ = 0;
+	//	float speed = (rand() % 10 + 1);
+	//	float col = rand() % 2;
+	//	string couleur;
+	//	if (col == 1) couleur = "black";
+	//	else couleur = "red";
 
-		float _position[3] = { x, y, z };
-		boids = new Boid(i, _position, angleXY, angleZ, 5, couleur);
-		grid.addToGrid(boids);
-	}
+	//	float _position[3] = { x, y, z };
+	//	boids = new Boid(i, _position, angleXY, angleZ, 5, couleur);
+	//	grid.addToGrid(boids);
+	//}
 	run(1);
 
 	cout << "initialize finished" << endl;

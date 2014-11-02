@@ -34,29 +34,29 @@ void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGener
 			_boidsX_vector = new std::vector< std::vector<Boid*> *>();
 			for (int boidsNumberLigne = 0; boidsNumberLigne<nbLigne; boidsNumberLigne++) {
 				_boidsParCases_vector = new std::vector<Boid*>();
-				if (randomGeneration){
-					//
-					// TO CHANGE : MISS POSITION Z
-					//
-					for (int boidsNumberCase = 0; boidsNumberCase <= rand() % 20; boidsNumberCase++) {
-					
-						float _position[3] = { static_cast<float>(rand() % 500), static_cast<float>(rand() % 400), static_cast<float>(rand() % 400) };
-						int col = rand() % 2;
-						string couleur;
-						if (col == 1)
-							couleur = "black";
-						else
-							couleur = "red";
+				//if (randomGeneration){
+				//	//
+				//	// TO CHANGE : MISS POSITION Z
+				//	//
+				//	for (int boidsNumberCase = 0; boidsNumberCase <= rand() % 20; boidsNumberCase++) {
+				//	
+				//		float _position[3] = { static_cast<float>(rand() % 500), static_cast<float>(rand() % 400), static_cast<float>(rand() % 400) };
+				//		int col = rand() % 2;
+				//		string couleur;
+				//		if (col == 1)
+				//			couleur = "black";
+				//		else
+				//			couleur = "red";
 
-						float angleXY =  rand() % 360;
-						angleXY = angleXY / 180 * PI;
+				//		float angleXY =  rand() % 360;
+				//		angleXY = angleXY / 180 * PI;
 
-						float angleZ = 0;
-						boids = new Boid(id, _position, angleXY, angleZ, 5, couleur);
-						id++;
-						_boidsParCases_vector->emplace(_boidsParCases_vector->end(), boids);
-					}
-				}
+				//		float angleZ = 0;
+				//		boids = new Boid(id, _position, angleXY, angleZ, 5, couleur);
+				//		id++;
+				//		_boidsParCases_vector->emplace(_boidsParCases_vector->end(), boids);
+				//	}
+				//}
 				_boidsX_vector->emplace(_boidsX_vector->end(), _boidsParCases_vector);
 			}
 			_boidsXY_vector->emplace(_boidsXY_vector->end(), _boidsX_vector);
@@ -123,6 +123,21 @@ std::vector<Boid*> *Grid::getNeighbors(int numCase[3]){
 	return boidsNeighbors;
 }
 
+Boid* Grid::findBoidById(long int id){
+	for (unsigned int i = 0; i <= boidsXYZ->size() - 1; i++) {
+		for (unsigned int j = 0; j <= boidsXYZ->at(i)->size() - 1; j++) {
+			for (unsigned int k = 0; k <= boidsXYZ->at(i)->at(j)->size() - 1; k++) {
+				for (long int l = boidsXYZ->at(i)->at(j)->at(k)->size() - 1; l >= 0; l--) {
+					if (boidsXYZ->at(i)->at(j)->at(k)->at(l)->getId() == id){
+						return boidsXYZ->at(i)->at(j)->at(k)->at(l);
+					}
+				}
+			}
+		}
+	}
+	return NULL;
+}
+
 void Grid::updateOnGrid(){
 	for (unsigned int i = 0; i <= boidsXYZ->size() - 1; i++) {
 		for (unsigned int j = 0; j<= boidsXYZ->at(i)->size() - 1; j++) {
@@ -139,5 +154,4 @@ void Grid::updateOnGrid(){
 			}
 		}
 	}
-
 }

@@ -7,15 +7,34 @@
 #include "Boid.h"
 #include "Behavior.h"
 
-Boid::Boid(long int id, float* position, float directionXY, float directionZ, float speed, string color) {
+Boid::Boid(long int id, string name, string url, string description){
 	_id = id;
-	for (int pos = 0; pos<3; pos++) {
-		_position[pos] = position[pos];
-	}
-	_directionXY = directionXY;
-	_directionZ = directionZ;
-	_speed = speed;
-	_color = color;
+	_name = name;
+	_url = url;
+	_description = description;
+	//random positionning
+	float x = static_cast<float>(rand() % MAX_X);
+	float y = static_cast<float>(rand() % MAX_Y);
+	//float z = static_cast<float>(rand() % MAX_Z);
+	float z = 0;
+
+	float pos[3] = { x, y, z };
+	this->setPosition(pos);
+	float angleXY = rand() % (360);
+	angleXY = angleXY / 180 * PI;
+	//float angleZ = rand() % (360) / 180 * pi;
+	float angleZ = 0;
+	float speed = 5;// (rand() % 10 + 1);
+	
+	float col = rand() % 2;
+	string couleur;
+	if (col == 1) couleur = "black";
+	else couleur = "red";
+	this->setColor(couleur);
+	
+	this->setDirectionXY(angleXY);
+	this->setDirectionZ(angleZ);
+	this->setSpeed(speed);
 }
 
 

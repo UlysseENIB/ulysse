@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 guillaume Kermarrec. All rights reserved.
 //
 
-#ifndef __boids__grid__
-#define __boids__grid__
+#pragma once
 
 
 #include "Boid.h"
@@ -29,7 +28,7 @@ private:
 
 	void generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration = false);
 
-	// Permet de mettre á jour la position dans la grille d'un seul boids.
+	// Permet de mettre a jour la position dans la grille d'un seul boids.
 	void updateOnGrid(Boid *boids);
 
 public:
@@ -37,21 +36,20 @@ public:
 	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> getAllGrid(){ return *boidsXYZ; }
 
 	std::vector<Boid*> *getNeighbors(int numCase[3]);
+	Boid* findBoidById(long int id);
 
 	int* determinerCase(float* position);
 
-	// Permet de mettre á jour la position d'un seul boids. Necessite la future position du boids
+	// Permet de mettre a jour la position d'un seul boids. Necessite la future position du boids
 	void updateOnGrid(Boid *boids, float* position, int positionActuelleCase[3]);
 
-	//  La fonction updateOnGrid permet de mettre á jour la grille dans sa totalit».
+	//  La fonction updateOnGrid permet de mettre a jour la grille dans sa totalite.
 	void updateOnGrid();
 
-	//  Pour cr»er unr grille appeler la fonction createGrid.
+	//  Pour creer unr grille appeler la fonction createGrid.
 	void createGrid(int nbCase, bool randomGeneration = false);
 	void setNbCase(int nbCase){ nbCaseGrid = nbCase; }
 
-	// Permet d'ajouter un nouvelle objet boids dans la grille. Il sera plac» en fonction de ses coordonn»es
+	// Permet d'ajouter un nouvelle objet boids dans la grille. Il sera place en fonction de ses coordonnees
 	void addToGrid(Boid *boids);
 };
-
-#endif /* defined(__boids__grid__) */

@@ -4,8 +4,7 @@
 *  Created on: 1 oct. 2014
 *      Author: ifig
 */
-#ifndef BOID_H_
-#define BOID_H_
+#pragma once
 
 //#include "Behavior.h"
 #include "Global.h"
@@ -14,6 +13,16 @@ class Boid {
 
 private:
 	long int _id;
+	string _name;
+	string _url;
+	string _description;
+	string _picture;
+	string _lieu;
+	float _gps[2];			// MAYBE
+	string _epoque;			// MAYBE
+	vector<string> _keyword;
+	// list parent
+
 	float _position[3];
 	float _speed;
 	float _directionXY, _directionZ;
@@ -21,7 +30,7 @@ private:
 	string _color;
 	// --
 public:
-	Boid(long int id, float* position, float directionXY, float directionZ, float speed, string color);
+	Boid(long int id, string name, string url, string description);
 	virtual ~Boid();
 
 	float* move(vector <Boid*> *boids); //computes new position
@@ -32,26 +41,41 @@ public:
 	float dirX();
 	float dirY();
 	float dirZ();
-
-	float getX(){ return _position[0]; }
-	float getY(){ return _position[1]; }
-	float getZ(){ return _position[2]; }
-
 	
+	int getId(){ return _id; }
+	string getName(){ return _name; }
+	string getUrl(){ return _url; }
+	string getDescription(){ return _description; }
+	string getPicture(){ return _picture; }
+	string getLieu(){ return _lieu; }
+	void setLieu(string lieu){ _lieu = lieu; }
+	float* getGPS(){ return _gps; }
+	void setGPS(float gps[2]){
+		for (int i = 0; i<sizeof(_gps) - 1; i++){
+			_gps[i] = gps[i];
+		}
+	}
+	string getEpoque(){ return _epoque; }
+	void setEpoque(string epoque){ _epoque = epoque; }
+
+	vector<string> getKeyword(){ return _keyword; }
+	void addKeyword(string keyword){ _keyword.push_back(keyword); }
+
 	float getDirectionXY(){ return _directionXY; }
 	void setDirectionXY(float direction){ _directionXY = direction; }
 	float getDirectionZ(){ return _directionZ; }
 	void setDirectionZ(float direction){ _directionZ = direction; }
 	float getSpeed(){ return _speed; }
-	int getId(){ return _id; }
-
-	//float getDir(); //returns the direction of the boid
-	//float getVel(); //returns the speed
+	void setSpeed(float speed){ _speed = speed; }
 
 	// to delete--
 	void setColor(string color){ _color = color; };
 	string getColor(){ return _color;}
 	//--
+
+	float getX(){ return _position[0]; }
+	float getY(){ return _position[1]; }
+	float getZ(){ return _position[2]; }
 
 	float* getPosition(){ return _position; }
 	void setPosition(float newPosition[3]){
@@ -61,5 +85,3 @@ public:
 	}
 
 };
-
-#endif /* BOID_H_ */

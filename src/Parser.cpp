@@ -123,6 +123,33 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 		boid->addKeyword(keyword);
 		dataBaseResource.addBoidInListKeyword(keyword, boid);
 	}
+	else if (xmlStrEqual(typeTable, xmlCharStrdup("parent-enfants"))){
+		int id_element = -1;
+		int id_element_parent = -1;
+		int id_element_enfant = -1;
+		for (it = node->children; it; it = it->next) {
+			if (it->type == XML_ELEMENT_NODE) {
+				if (xmlStrEqual(it->name, xmlCharStrdup("column"))) {
+					ContentStruct* content = parseNode(it);
+					if (content != NULL){
+						if (xmlStrEqual(content->name, xmlCharStrdup("id_element"))){
+							id_element = atoi((const char*)content->value);
+						}
+						else if (xmlStrEqual(content->name, xmlCharStrdup("id_element_parent"))){
+							id_element_parent = atoi((const char*)content->value);
+						}
+						else if (xmlStrEqual(content->name, xmlCharStrdup("id_element_enfant"))){
+							id_element_enfant = atoi((const char*)content->value);
+						}
+					}
+				}
+			}
+		}
+		Boid* boid = grid.findBoidById(id_element);
+		boid->setIdParent(id_element_parent);
+		boid->addIdEnfant(id_element_enfant);
+		dataBaseResource.addBoidInListIdEnfant(id_element_enfant, boid);
+	}
 }
 
 void Parser::parseDatabase(xmlNode * root){

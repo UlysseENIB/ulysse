@@ -241,7 +241,7 @@
             <column name="id_element_enfant">0</column>
         </table>
         <!-- Table semblable -->
-        <table name="semblable">
+        <!--<table name="semblable">
             <column name="id_relation_se">0</column>
             <column name="id_element">0</column>
             <column name="id_element_semblable">1</column>
@@ -250,6 +250,6 @@
             <column name="id_relation_se">0</column>
             <column name="id_element">1</column>
             <column name="id_element_semblable">0</column>
-        </table>
+        </table>-->
     </database>
 </pma_xml_export>

@@ -20,8 +20,9 @@ private:
 	string _lieu;
 	float _gps[2];			// MAYBE
 	string _epoque;			// MAYBE
-	vector<string> _keyword;
-	// list parent
+	std::vector<string> _keyword;
+	int _idParent;
+	std::vector<int> _idEnfant;
 
 	float _position[3];
 	float _speed;
@@ -60,6 +61,14 @@ public:
 
 	vector<string> getKeyword(){ return _keyword; }
 	void addKeyword(string keyword){ _keyword.push_back(keyword); }
+
+	int getIdParent(){ return _idParent; }
+	void setIdParent(int idParent){ _idParent = idParent; }
+
+	vector<int> getIdEnfant(){ return _idEnfant; }
+	void addIdEnfant(int idEnfant){ _idEnfant.push_back(idEnfant); }
+
+
 
 	float getDirectionXY(){ return _directionXY; }
 	void setDirectionXY(float direction){ _directionXY = direction; }

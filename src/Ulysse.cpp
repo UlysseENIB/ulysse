@@ -58,6 +58,7 @@ void run(int value)
 	srand(time(NULL));
 	std::vector< std::vector< std::vector< std::vector<Boid*> *> *> *> boidsXYZ = parser->grid.getAllGrid();
 	vector <Boid*>* boidNeighbor;
+
 	for (unsigned int i = 0; i <= boidsXYZ.size() - 1; i++) {
 		for (unsigned int j = 0; j <= boidsXYZ.at(i)->size() - 1; j++) {
 			for (unsigned int k = 0; k <= boidsXYZ.at(i)->at(j)->size() - 1; k++) {
@@ -67,6 +68,9 @@ void run(int value)
 					boidNeighbor = parser->grid.getNeighbors(_positionActuelleCase);
 					for (l; l >= 0; l--) {
 						parser->grid.updateOnGrid(boidsXYZ.at(i)->at(j)->at(k)->at(l), boidsXYZ.at(i)->at(j)->at(k)->at(l)->move(boidNeighbor), _positionActuelleCase);
+						// find one enfant of one boid
+						//Boid* test;
+						//test = parser->grid.findBoidById(boidsXYZ.at(i)->at(j)->at(k)->at(l)->getIdEnfant()[0]);
 					}
 				}
 			}

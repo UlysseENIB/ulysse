@@ -31,7 +31,7 @@ private:
 	string _color;
 	// --
 public:
-	Boid(long int id, string name, string url, string description);
+	Boid(long int id, string name, string url, string description, string picture);
 	virtual ~Boid();
 
 	float* move(vector <Boid*> *boids); //computes new position
@@ -51,10 +51,9 @@ public:
 	string getLieu(){ return _lieu; }
 	void setLieu(string lieu){ _lieu = lieu; }
 	float* getGPS(){ return _gps; }
-	void setGPS(float gps[2]){
-		for (int i = 0; i<sizeof(_gps) - 1; i++){
-			_gps[i] = gps[i];
-		}
+	void setGPS(float latitude, float longitude){
+		_gps[0] = latitude;
+		_gps[1] = longitude;
 	}
 	string getEpoque(){ return _epoque; }
 	void setEpoque(string epoque){ _epoque = epoque; }
@@ -88,7 +87,7 @@ public:
 
 	float* getPosition(){ return _position; }
 	void setPosition(float newPosition[3]){
-		for (int pos = 0; pos<sizeof(_position)-1; pos++){
+		for (int pos = 0; pos<3; pos++){
 			_position[pos] = newPosition[pos];
 		}
 	}

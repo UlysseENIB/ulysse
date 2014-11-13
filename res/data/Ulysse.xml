@@ -4,10 +4,10 @@
 - version 4.3.0-dev
 - http://www.phpmyadmin.net
 -
-- Host: 192.168.30.23
-- Generation Time: Oct 22, 2014 at 08:47 AM
-- Server version: 5.5.37-0+wheezy1
-- PHP Version: 5.4.4-14+deb7u14
+- Client :  192.168.30.22
+- Genere le :  Mer 12 Novembre 2014 a 10:36
+- Version du serveur :  10.0.11-MariaDB-1~wheezy-log
+- Version de PHP :  5.4.4-14+deb7u14
 -->
 
 <pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
@@ -18,238 +18,1257 @@
         <pma:database name="Ulysse" collation="latin1_swedish_ci" charset="latin1">
             <pma:table name="identite">
                 CREATE TABLE `identite` (
-                  `id-element` int(11) NOT NULL,
-                  `name` varchar(255) NOT NULL,
-                  `url` varchar(255) NOT NULL,
-                  `descrption` varchar(255) NOT NULL,
-                  PRIMARY KEY (`id-element`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+                  `id_element` int(10) NOT NULL DEFAULT '0',
+                  `parent_id` int(10) DEFAULT NULL,
+                  `name` text COLLATE utf8_bin,
+                  `url` varchar(281) COLLATE utf8_bin DEFAULT NULL,
+                  `development` text COLLATE utf8_bin,
+                  `picture` text COLLATE utf8_bin
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
             </pma:table>
             <pma:table name="localisation">
                 CREATE TABLE `localisation` (
-                  `id_element` int(11) NOT NULL,
-                  `lieu` varchar(255) NOT NULL,
-                  `gps` int(11) NOT NULL,
-                  `epoque` varchar(255) NOT NULL,
-                  PRIMARY KEY (`id_element`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+                  `id_element` bigint(20) NOT NULL DEFAULT '0',
+                  `locality` text COLLATE utf8_bin,
+                  `latitude` double DEFAULT NULL,
+                  `longitude` double DEFAULT NULL,
+                  `epoque` varchar(255) COLLATE utf8_bin DEFAULT NULL
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
             </pma:table>
-            <pma:table name="mot-cle">
-                CREATE TABLE `mot-cle` (
-                  `id_mot_cle` int(11) NOT NULL,
-                  `id_element` int(11) NOT NULL,
-                  `mot_cle` varchar(255) NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            <pma:table name="mots_cles">
+                CREATE TABLE `mots_cles` (
+                  `id_mot_cle` int(11) DEFAULT '0',
+                  `id_element` bigint(20) NOT NULL DEFAULT '0',
+                  `mot_cle` text COLLATE utf8_bin
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
             </pma:table>
-            <pma:table name="parent-enfants">
-                CREATE TABLE `parent-enfants` (
-                  `id_relation_pe` int(11) NOT NULL,
-                  `id_element` int(11) NOT NULL,
-                  `id_element_parent` int(11) NOT NULL,
-                  `id_element_enfant` int(11) NOT NULL,
-                  PRIMARY KEY (`id_relation_pe`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-            </pma:table>
-            <pma:table name="semblable">
-                CREATE TABLE `semblable` (
-                  `id_relation_se` int(11) NOT NULL,
-                  `id_element` int(11) NOT NULL,
-                  `id_element_semblable` int(11) NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            <pma:table name="parent_enfant">
+                CREATE TABLE `parent_enfant` (
+                  `id_element` bigint(20) NOT NULL DEFAULT '0',
+                  `id_element_parent` bigint(20) DEFAULT NULL,
+                  `id_element_enfant` bigint(20) DEFAULT '0'
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
             </pma:table>
         </pma:database>
     </pma:structure_schemas>
 
     <!--
-    - Database: 'Ulysse'
+    - Base de donnees :  'Ulysse'
     -->
     <database name="Ulysse">
         <!-- Table identite -->
         <table name="identite">
-            <column name="id-element">0</column>
+            <column name="id_element">34725</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Enceinte de Penn-ar-Lan</column>
+            <column name="url">http://fr.topic-topos.com/enceinte-de-penn-ar-lan-ouessant</column>
+            <column name="development">Cette enceinte est composee de petits menhirs et date environ de 2000 av. J.-C. Elle est batie selon un plan elliptique et parait reliee a un systeme plus complexe, en partie disparu. Son trace et son orientation semblent indiquer qu'elle etait destinee a des observations du ciel.</column>
+            <column name="picture">res\Textures\_BATIMENTS\enceinte-de-penn-ar-lan-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34726</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Vestiges du chateau d’Arlan</column>
+            <column name="url">http://fr.topic-topos.com/vestiges-du-chateau-darlan-ouessant</column>
+            <column name="development">Il ne reste que peu d'elements du chateau d'Ouessant : le plan grossierement triangulaire est encore visible, ainsi que les traces de deux tours de la façade est. Cet edifice occupait un site defensif, deja amenage a l'epoque gallo-romaine, dans l'isthme de la presqu'ile d'Arlan et a la verticale d'un mouillage relativement abrite. La tradition locale pretend que le seigneur voulait apercevoir Brest du haut de ses tours. Les Ouessantins requis pour construire le chateau se revolterent et lapiderent le seigneur qui dut s'enfuir. Le batiment etait deja en ruine au XVI&lt;SUP&gt;e&lt;/SUP&gt; siecle.</column>
+            <column name="picture">res\Textures\_BATIMENTS\vestiges-du-chateau-darlan-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34727</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Phare du Stiff</column>
+            <column name="url">http://fr.topic-topos.com/phare-du-stiff-ouessant</column>
+            <column name="development">La construction d'un fanal a Ouessant fait, dans un premier temps, partie d'un projet de mise en defense de 1681. Abandonne, il est repris plus tard, sans arriere-plan strategique. Deux phares sont alors necessaires pour signaler l'entree de la Manche aux navires venant du grand large et doivent etre differencies du feu des Scilly a la pointe de Cornouaille. Cette tour a feu, en fait deux tours accolees l'une a l'autre, est l'un des plus vieux phares de France. Le feu s'allume a partir d'un brasero, situe sur la terrasse superieure du phare, et brûle du bois et du charbon. Modifie a plusieurs reprises, l'edifice possede en 1831 une optique de feu fixe de premier ordre. En 1926, il est equipe d'un systeme donnant deux eclats rouges toutes les 20 secondes, et la portee en est de 23 milles. Le feu est situe a 89,1 metres au-dessus de la mer.</column>
+            <column name="picture">res\Textures\_PHARES\phare-du-stiff-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34728</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Kroaz ar Chalvar</column>
+            <column name="url">http://fr.topic-topos.com/kroaz-ar-chalvar-ouessant</column>
+            <column name="development">Cette croix, dont la date d'edification est gravee sur le socle, etait decoree lors du pardon de Saint-Paul-Aurelien, le 29 mars. Les gens du voisinage la recouvraient de dessus-de-lit ornes de feuillages et disposaient des tableaux contenant des images de piete sur les degres du socle. Une source, liee au culte de saint Paul-Aurelien, se trouve sur la greve, au pied du calvaire. a proximite, une trace visible serait, d'apres la legende, celle du genou du saint.</column>
+            <column name="picture">res\Textures\_RELIGION\kroaz-ar-chalvar-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34729</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Ancien siege du gouvernement</column>
+            <column name="url">http://fr.topic-topos.com/ancien-siege-du-gouvernement-ouessant</column>
+            <column name="development">Cette demeure abritait le gouvernement d'Ouessant apres l'acquisition de l'ile par Louix XV en 1764. Avant son reamenagement dans les annees 1970, elle conservait plusieurs caracteristiques de l'architecture militaire du XVIII&lt;SUP&gt;e&lt;/SUP&gt; siecle, qui se retrouvent dans un certain nombre de constructions, tant en metropole que dans les departements d'outre-mer : encadrement de fenetre en bois, parquet de pitchpin de 2,5 pouces, lambris au rez-de-chaussee et escalier a balustres plats.</column>
+            <column name="picture">res\Textures\_BATIMENTS\ancien-siege-du-gouvernement-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34730</column>
+            <column name="parent_id">NULL</column>
             <column name="name">Maison du Niou</column>
             <column name="url">http://fr.topic-topos.com/maison-du-niou-ouessant</column>
-            <column name="descrption">Cette maison est typique de l'architecture rurale de l'île. Les maisons sont en général regroupées en hameaux au centre d'un terroir agricole. Elles ne comportaient qu'un niveau d'habitation sous un toit de chaume, mais certaines d'entre elles ont été sur</column>
+            <column name="development">Cette maison est typique de l'architecture rurale de l'ile. Les maisons sont en general regroupees en hameaux au centre d'un terroir agricole. Elles ne comportaient qu'un niveau d'habitation sous un toit de chaume, mais certaines d'entre elles ont ete surelevees des la fin du XIX&lt;SUP&gt;e&lt;/SUP&gt; siecle, ou delaissees pour des demeures a etage et a toit d'ardoises. La maison est generalement orientee est-ouest, la façade principale au sud et un pignon aveugle a l'ouest,afin qu'elle soit protegee des bourrasques venues de la mer. Les parcelles des differentes maisons, tachennou, sont elles-memes regroupees au sein d'ensembles, mezadou, autrefois exploites collectivement. Ouessant comporte plus de 55 000 parcelles reparties entre les 1 560 hectares de superficie de l'ile.</column>
+            <column name="picture">res\Textures\_NIOU\maison-du-niou-ouessant.jpg</column>
         </table>
         <table name="identite">
-            <column name="id-element">1</column>
+            <column name="id_element">34731</column>
+            <column name="parent_id">34730</column>
             <column name="name">Penn Brao</column>
             <column name="url">http://fr.topic-topos.com/penn-brao-ouessant</column>
-            <column name="descrption">L'aménagement des maisons d'Ouessant utilise l'espace domestique comme s'il s'agissait de bateaux. Les meubles forment les cloisons et sont disposés le long de deux couloirs se croisant au centre de la maison. Les aires de stockage pour les récoltes et de</column>
+            <column name="development">L'amenagement des maisons d'Ouessant utilise l'espace domestique comme s'il s'agissait de bateaux. Les meubles forment les cloisons et sont disposes le long de deux couloirs se croisant au centre de la maison. Les aires de stockage pour les recoltes et de conservation pour la nourriture occupent l'espace central. La demeure possede deux pieces. L'une, appelee penn ludu, extremite des cendres, ou penn lous, extremite sale, sert de cuisine, de lieu de reunion et de travail. La seconde piece, penn brao, belle extremite, est utilisee lors des grandes occasions et sert, eventuellement, de chambre a coucher. Les meubles, fabriques en bois recupere sur la greve, sont en general peints en bleu et blanc.</column>
+            <column name="picture">res\Textures\_NIOU\penn-brao-ouessant.jpg</column>
         </table>
         <table name="identite">
-            <column name="id-element">2</column>
+            <column name="id_element">34732</column>
+            <column name="parent_id">34730</column>
             <column name="name">Cheminee</column>
             <column name="url">http://fr.topic-topos.com/cheminee-ouessant</column>
-            <column name="descrption">Cette cheminée, enfermée dans un placard, est d'un type qui se retrouve fréquemment sur l'île, et permet d'éviter les courants d'air. </column>
+            <column name="development">Cette cheminee, enfermee dans un placard, est d'un type qui se retrouve frequemment sur l'ile, et permet d'eviter les courants d'air.</column>
+            <column name="picture">res\Textures\_NIOU\cheminee-ouessant.jpg</column>
         </table>
         <table name="identite">
-            <column name="id-element">3</column>
+            <column name="id_element">34733</column>
+            <column name="parent_id">34730</column>
             <column name="name">Puits de la maison du Niou</column>
             <column name="url">http://fr.topic-topos.com/puits-de-la-maison-du-niou-ouessant</column>
-            <column name="descrption">La maison est le centre d'une petite exploitation agricole dont les différents éléments, comme ce puits, se répartissent dans des enclos entourant l'habitation. </column>
+            <column name="development">La maison est le centre d'une petite exploitation agricole dont les differents elements, comme ce puits, se repartissent dans des enclos entourant l'habitation.</column>
+            <column name="picture">res\Textures\_NIOU\puits-de-la-maison-du-niou-ouessant.jpg</column>
         </table>
         <table name="identite">
-            <column name="id-element">4</column>
+            <column name="id_element">34734</column>
+            <column name="parent_id">34730</column>
             <column name="name">Creche</column>
             <column name="url">http://fr.topic-topos.com/creche-ouessant</column>
-            <column name="descrption">Ce bâtiment possède un toit à couverture d'argile. À l'origine, les maisons d'Ouessant étaient couvertes de chaume. La paille de seigle était lestée d'un peu d'argile, ce qui rendait le toit résistant aux vents violents fréquents sur l'île en hiver. L'ard</column>
+            <column name="development">Ce batiment possede un toit a couverture d'argile. a l'origine, les maisons d'Ouessant etaient couvertes de chaume. La paille de seigle etait lestee d'un peu d'argile, ce qui rendait le toit resistant aux vents violents frequents sur l'ile en hiver. L'ardoise a remplace le chaume sur les maisons. Les mottes de gazon, taouarc'h, sont posees sur un lit de fougeres et de ronces, a meme la charpente, puis recouvertes d'une epaisse couche d'argile parfois melangee a de la balle d'avoine ou a de la paille hachee.</column>
+            <column name="picture">res\Textures\_NIOU\creche-ouessant.jpg</column>
         </table>
         <table name="identite">
-            <column name="id-element">5</column>
-            <column name="name">Costume de mariee</column>
+            <column name="id_element">34735</column>
+            <column name="parent_id">34730</column>
+            <column name="name">Costume de mariee (1880)</column>
             <column name="url">http://fr.topic-topos.com/costume-de-mariee-1880-ouessant</column>
-            <column name="descrption">Le costume des femmes d'Ouessant est un assemblage de plusieurs éléments épinglés. La jupe, broz, est portée en général sur deux lourds jupons de drap de couleur bleu et rouge. Peu à peu, la coutume a fait que seul l'un des deux était porté avec un petit </column>
+            <column name="development">Le costume des femmes d'Ouessant est un assemblage de plusieurs elements epingles. La jupe, broz, est portee en general sur deux lourds jupons de drap de couleur bleu et rouge. Peu a peu, la coutume a fait que seul l'un des deux etait porte avec un petit galon de tissu de la couleur complementaire. Le justinen est un corsage de tissu leger sur lequel sont montes les manches et le kamproz, le corselet retenu par des bretelles. Le chale, mouchoar, le depassant, la petite piece d'etoffe bordant le chale sur le devant, riblikenn, et le tablier, tancher, completent l'ensemble. Ce costume est porte jusque dans les annees 1960 et a evolue en fonction des modes. Il existe ainsi un costume « charleston » dans les annees 1925. Les etoffes se sont allegees, la jupe a decouvert le bas des jambes, la coiffe a retreci pour laisser voir la chevelure vers 1910. La mariee, dont le costume comporte un chale en indienne, porte le ruban des Enfants de Marie, ainsi qu'une croix et un cœur en metal dore.</column>
+            <column name="picture">res\Textures\_NIOU\costume-de-mariee-1880-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34736</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Costume de mariee</column>
+            <column name="url">http://fr.topic-topos.com/costume-de-mariee-ouessant</column>
+            <column name="development">Ce costume de mariee date du XX&lt;sup&gt;e&lt;/sup&gt; siecle. En effet, le blanc n'est intervenu que tres progressivement dans la composition du costume, vers 1950.</column>
+            <column name="picture">res\Textures\_NIOU\costume-de-mariee-xxesiecle-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34737</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Croix de proella</column>
+            <column name="url">http://fr.topic-topos.com/croix-de-proella-ouessant</column>
+            <column name="development">Cette petite croix est remise aux familles qui ont perdu l'un des leurs en mer. Elle est placee sur la table du penn brao et veillee comme s'il s'agissait du defunt en personne. Le lendemain, un pretre procede a la levee du corps, qui est mene a l'eglise et depose, apres une messe, dans une urne speciale.</column>
+            <column name="picture">res\Textures\_RELIGION\croix-de-proella-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34738</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Reflecteurs de phare</column>
+            <column name="url">http://fr.topic-topos.com/reflecteurs-de-phare-ouessant</column>
+            <column name="development">Ces reflecteurs se composent d'une surface en metal poli et sont destines a reflechir les rayons dans la direction choisie afin de permettre aux navires de se situer. Le navigateur doit pouvoir s'orienter mais egalement identifier le phare, c'est pourquoi les appareils optiques ne sont pas tous semblables.</column>
+            <column name="picture">res\Textures\_PHARES\reflecteurs-de-phare-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34739</column>
+            <column name="parent_id">34738</column>
+            <column name="name">Lampe a huile</column>
+            <column name="url">http://fr.topic-topos.com/lampe-a-huile-ouessant</column>
+            <column name="development">Augustin Fresnel (1788-1827) avait hierarchise les phares, en fonction de leur puissance, et determine ainsi cinq categories. Les plus puissants, de premier ordre, etaient equipes de lampes a cinq meches. Le perfectionnement des optiques et le souci d'augmenter la portee lumineuse ont conduit a doter les phares de lampes comportant jusqu'a huit meches concentriques.</column>
+            <column name="picture">res\Textures\_PHARES\lampe-a-huile-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34740</column>
+            <column name="parent_id">34738</column>
+            <column name="name">Optique a eclats reguliers</column>
+            <column name="url">http://fr.topic-topos.com/optique-a-eclats-reguliers-ouessant</column>
+            <column name="development">Cet appareil, a eclat toutes les 30 secondes, illustre l'evolution technique permettant le remplacement de l'ancien systeme optique compose de miroirs concaves. Il s'agit la de prismes a reflexion totale, catadioptrique. Avec ce type d'appareil, tournant sur un tambour de galets coniques en bronze, la revolution etait d'une duree de 8 minutes.</column>
+            <column name="picture">res\Textures\_PHARES\optique-a-eclats-reguliers-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34741</column>
+            <column name="parent_id">34738</column>
+            <column name="name">Maquette du phare Amedee</column>
+            <column name="url">http://fr.topic-topos.com/maquette-du-phare-amedee-ouessant</column>
+            <column name="development">Le secteur industriel lie aux phares s'est developpe pendant le XIX&lt;SUP&gt;e&lt;/SUP&gt; siecle. Les entreprises concernees prenaient en charge le service des phares et l'exportation. La construction de tours dans des pays lointains et souvent sous-equipes a tres vite demande des techniques et des moyens nouveaux. La construction metallique permettait de resoudre facilement les problemes poses par l'eloignement, le manque de materiaux et de main-d'œuvre qualifiee. Le phare prevu pour l'ilot Amedee en Nouvelle-Caledonie a d'abord ete monte a Paris, a l'occasion de l'Exposition universelle de 1865, puis demonte et transporte sur son emplacement definitif par voie de mer. Il est l'œuvre de l'ingenieur Rigollet. Un phare semblable, de structure metallique, a ete erige sur le plateau des Roches-Douvres, entre Paimpol et Guernesey.</column>
+            <column name="picture">res\Textures\maquette-du-phare-amedee-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34742</column>
+            <column name="parent_id">34738</column>
+            <column name="name">Ampoule</column>
+            <column name="url">http://fr.topic-topos.com/ampoule-ouessant</column>
+            <column name="development">Ce type d'ampoule a 6 kW/127 V a equipe le phare du Stiff jusqu'a ce qu'elle soit remplacee par des ampoules de bas voltage.</column>
+            <column name="picture">res\Textures\_PHARES\ampoule-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34743</column>
+            <column name="parent_id">34738</column>
+            <column name="name">Maquette du phare de Cordouan</column>
+            <column name="url">http://fr.topic-topos.com/maquette-du-phare-de-cordouan-ouessant</column>
+            <column name="development">Cette maquette reproduit le phare situe sur un rocher du golfe de Gascogne, au large de l'estuaire de la Gironde, sur le vestige d'un littoral submerge. La construction du phare, dit tour de Cordouan, a debute en 1584 et a ete achevee en 1610. Le foyer se trouve a une hauteur de 63 metres.</column>
+            <column name="picture">res\Textures\maquette-du-phare-de-cordouan-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34744</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Semaphore de Creac’h</column>
+            <column name="url">http://fr.topic-topos.com/semaphore-de-creach-ouessant</column>
+            <column name="development">L'entree de la Manche constitue une importante voie maritime : chaque annee, plus de 50 000 navires empruntent le « rail de navigation d'Ouessant ». La surveillance de ce trafic incombe en premier lieu a la tour-radar du Stiff, construite apres le naufrage de l'Amoco-Cadiz, mais la Marine nationale, qui a la charge de cette surveillance, a agrandi et sureleve l'ancien semaphore de Creac'h, jusqu'alors tapi dans les rochers au pied du phare de Creac'h.</column>
+            <column name="picture">res\Textures\_PHARES\semaphore-de-creach-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34745</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Puits de Toulalan</column>
+            <column name="url">http://fr.topic-topos.com/puits-de-toulalan-ouessant</column>
+            <column name="development">Jusqu'a l'amenagement des reserves d'eau sur le ruisseau du Stang-ar-Maedry, Ouessant s'est approvisionne aux nombreux puits et fontaines dissemines sur l'ile. Lorsque la nappe phreatique ne pouvait etre atteinte, l'eau de pluie etait recuperee sur les toitures et guidee vers les citernes placees a proximite des maisons.</column>
+            <column name="picture">res\Textures\_NIOU\puits-de-toulalan-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34746</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Port de Bougezenn</column>
+            <column name="url">http://fr.topic-topos.com/port-de-bougezenn-ouessant</column>
+            <column name="development">L'ile, exposee aux vents du secteur ouest dans la baie de Lampaul, n'a jamais constitue un abri suffisamment sûr pour qu'un port de peche puisse s'y developper. Toutefois, des havres, situes au pied des falaises et abrites des vents dominants par des protections naturelles « des presqu'iles rocheuses », ont permis, par endroits, l'amenagement de petits ports susceptibles d'abriter quelques barques. Le port de Bougezenn, sur la côte sud de la pointe de Loqueltas, est l'un d'entre eux. Un treuil permettait de hisser les barques jusqu'a une plate-forme afin qu'elles soient tenues a l'abri pendant les tempetes d'hiver.</column>
+            <column name="picture">res\Textures\_PORTS\port-de-bougezenn-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34747</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Ancienne manutention</column>
+            <column name="url">http://fr.topic-topos.com/ancienne-manutention-ouessant</column>
+            <column name="development">Ce batiment est celui de l'ancienne intendance militaire d'Ouessant.</column>
+            <column name="picture">res\Textures\_BATIMENTS\ancienne-manutention-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34748</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Moulin de Karaes</column>
+            <column name="url">http://fr.topic-topos.com/moulin-de-karaes-ouessant</column>
+            <column name="development">Une centaine de petits moulins existaient encore a Ouessant au debut du XX&lt;SUP&gt;e&lt;/SUP&gt; siecle. Ils servaient, au cours du XIX&lt;SUP&gt;e&lt;/SUP&gt; siecle, a pallier l'insuffisance des grands moulins, qui obligeait les Ouessantins a faire moudre leur orge sur le continent. Le decret pris sur le bornage en 1852, interdisant aux barques de peche de transporter des produits alimentaires, et la venue sur l'ile de tailleurs de pierre du Cap-Sizun pour la construction du phare et de l'eglise paroissiale favoriserent l'emergence et le developpement de ces petits moulins. Celui de Karaes est le seul conserve dans la commune.</column>
+            <column name="picture">res\Textures\_NIOU\moulin-de-karaes-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34749</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Chapelle Notre-Dame-d’Esperance</column>
+            <column name="url">http://fr.topic-topos.com/chapelle-notre-dame-desperance-ouessant</column>
+            <column name="development">Placee sous le double patronage de saint Pierre et de Notre-Dame d'Esperance, cette chapelle est reconstruite en 1854. De plan rectangulaire, elle possede des vitraux de P. Toulhoat representant la vie de la Vierge.</column>
+            <column name="picture">res\Textures\_RELIGION\hapelle-notre-dame-desperance-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34750</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">eglise Saint-Paul-Aurelien</column>
+            <column name="url">http://fr.topic-topos.com/eglise-saint-paul-aurelien-ouessant</column>
+            <column name="development">Cette eglise est dediee au premier eveque du Leon, qui fait escale a Ouessant et y etablit un monastere, Lampaul, avant de se fixer sur le continent. Elle remplace deux eglises anterieures, detruites en raison de leur etat de delabrement. La fleche du clocher a ete offerte par la Couronne britannique a la suite du naufrage du Drummond-Castle, le 17 juin 1896, au large des côtes de l'ile.</column>
+            <column name="picture">res\Textures\_RELIGION\eglise-saint-paul-aurelien-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34751</column>
+            <column name="parent_id">34750</column>
+            <column name="name">Sainte Barbe</column>
+            <column name="url">http://fr.topic-topos.com/sainte-barbe-ouessant</column>
+            <column name="development">Cette statue etait autrefois accompagnee d'une tour, attribut de la sainte et symbole du lieu où elle aurait ete enfermee et aurait subi son martyre. La statue a ete rebaptisee Marie Madeleine.</column>
+            <column name="picture">res\Textures\_RELIGION\sainte-barbe-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34752</column>
+            <column name="parent_id">34750</column>
+            <column name="name">Urne des proellas</column>
+            <column name="url">http://fr.topic-topos.com/urne-des-proellas-ouessant</column>
+            <column name="development">Cette urne, placee pres de l'autel du Rosaire, recueillait les croix des proellas. Ces croix symbolisaient les marins morts en mer, et dont les corps n'avaient pas ete retrouves. Le terme de proella designe a la fois la croix en cire, le disparu et la ceremonie funebre. Lorsque l'urne est remplie, les croix sont transferees dans un petit ossuaire. Cette pratique existait des le XVIII&lt;SUP&gt;e&lt;/SUP&gt; siecle et a perdure jusqu'en 1962.</column>
+            <column name="picture">res\Textures\_RELIGION\urne-des-proellas-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34753</column>
+            <column name="parent_id">34750</column>
+            <column name="name">Tombe</column>
+            <column name="url">http://fr.topic-topos.com/tombe-ouessant</column>
+            <column name="development">Les tombes des cures d'Ouessant ou des pretres originaires de l'ile se trouvent dans un enclos a part. Elles sont regroupees autour d'un calvaire edifie en 1884 a la suite d'une mission.</column>
+            <column name="picture">res\Textures\_RELIGION\Tombe-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34754</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Tombes de naufrages</column>
+            <column name="url">http://fr.topic-topos.com/tombes-de-naufrages-ouessant</column>
+            <column name="development">Ces tombes sont celles des naufrages du Drummond-Castle, qui a sombre le 17 juin 1896, en quelques minutes, dans le passage du Fromveur, apres avoir touche une tete de roche. Sur les 247 passagers et membres d'equipage, seules 3 personnes furent sauvees. Les corps retrouves reçurent une sepulture a Ouessant ou a Molene. La Castle Mail Packet, qui armait le navire, et differentes fondations anglaises, touchees par la sollicitude des Ouessantins, ont fait don du clocher de l'eglise Saint-Paul-Aurelien a Ouessant.</column>
+            <column name="picture">res\Textures\_RELIGION\Tombes-de-naufrages-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34755</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Monument des proellas</column>
+            <column name="url">http://fr.topic-topos.com/monument-des-proellas-ouessant</column>
+            <column name="development">Un rituel particulier a Ouessant est atteste des le XVIII&lt;SUP&gt;e&lt;/SUP&gt; siecle. Un service funeraire, dit pro illa, proella, remplace celui que ne peut avoir un marin disparu en mer. Une petite croix en cire, autrefois en bois, symbolise le disparu. a l'occasion d'une mission ou d'une visite de l'eveque, toutes les croix sont portees au cimetiere, dans ce monument qui porte l'inscription suivante : « Ici nous deposons les croix de proella en memoire de nos marins morts loin de leur pays dans les guerres, les maladies et les naufrages. »</column>
+            <column name="picture">res\Textures\_RELIGION\monument-des-proellas-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34756</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Tour modele de Roc’h Kromm</column>
+            <column name="url">http://fr.topic-topos.com/tour-modele-de-roch-kromm-ouessant</column>
+            <column name="development">Sous le second Empire, de nombreuses tours similaires ont ete construites, tout le long du littoral breton. Le modele, conçu en 1846, permet d'heberger un corps de troupe charge de servir une batterie côtiere.</column>
+            <column name="picture">res\Textures\_BATIMENTS\Tour-modele-de-roch-kromm-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34757</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Phare de Creac’h</column>
+            <column name="url">http://fr.topic-topos.com/phare-de-creach-ouessant</column>
+            <column name="development">L'ouverture de nombreuses routes maritimes au XIX&lt;SUP&gt;e&lt;/SUP&gt; siecle et l'apparition de la locomotion a vapeur permettent aux navires de respecter des horaires plus precis mais les engagent a longer la côte au plus pres. Au milieu du XIX&lt;SUP&gt;e&lt;/SUP&gt; siecle, 30 000 navires de tout tonnage relevent Ouessant avant de s'engager dans la Manche ou de se diriger vers une voie transoceanique. Le signalement des dangers lies aux saillants littoraux devient des lors necessaire. La construction des phares en France s'est etendue tout au long du XIX&lt;SUP&gt;e&lt;/SUP&gt; siecle, 900 tours ont ete construites dont un tiers se trouve en Bretagne. Ouessant compte 5 phares et 1 tourelle. Le phare de Creac'h, a l'etude des 1859, est mis en service en 1863. electrifie en 1889, il est modernise a plusieurs reprises. En 1939, une nouvelle optique, eclairee par une lampe a arc a forte luminosite en fait, jusqu'en 1970, le phare le plus puissant du monde. Le Creac'h d'Ouessant pilote ou surveille des phares recemment automatises comme ceux du Stiff, de Nividic, de La Jument ou des Pierres-Noires. L'ancienne salle des machines abrite desormais un musee retraçant l'histoire des phares.</column>
+            <column name="picture">res\Textures\_PHARES\phare-de-creach-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34758</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Vestiges d’abri de trompette de Porz-Aziou</column>
+            <column name="url">http://fr.topic-topos.com/vestiges-dabri-de-trompette-de-porz-aziou-ouessant</column>
+            <column name="development">Ce batiment abrite lors de sa construction la premiere trompette de brume a air comprime construite sur les côtes françaises. a l'origine, cette trompette a ete conçue pour etre actionnee par des chevaux loues sur place. a Ouessant, les chevaux ont ete remplaces par une machine a vapeur.</column>
+            <column name="picture">res\Textures\_PHARES\vestiges-dabri-de-trompette-de-porz-aziou-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34759</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Port d’Arlan</column>
+            <column name="url">http://fr.topic-topos.com/port-darlan-ouessant</column>
+            <column name="development">Le môle protege le port d'Arlan des vents de suroit. Ce port est le seul de l'ile a etre situe vers le sud.</column>
+            <column name="picture">res\Textures\_PORTS\port-darlan-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34760</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Vestiges d’abri de trompette a vapeur</column>
+            <column name="url">http://fr.topic-topos.com/vestiges-dabri-de-trompette-a-vapeur-ouessant</column>
+            <column name="development">En 1885, l'Administration, soucieuse de porter les signaux au plus pres des dangers et d'en augmenter la portee, construit a Pern une trompette a vapeur de grande puissance dont le pavillon, long de 5 metres, pouvait decrire un arc de cercle en pivotant autour de son axe et ainsi balayer l'horizon. Pour alimenter la machine, un impluvium permettait de recolter l'eau de pluie, qui etait stockee dans une citerne situee sous le batiment. Desaffecte en 1900, un nouveau signal ayant ete mis en place sur la galerie du phare de Creac'h, l'edifice est acquis par un commerçant de l'ile. L'ecrivain Bernhardt Kellermann, dans son roman La Mer, le surnomme la « villa des tempetes ».</column>
+            <column name="picture">res\Textures\_PHARES\vestiges-dabri-de-trompette-de-porz-aziou-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34761</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Chapelle Saint-Gildas</column>
+            <column name="url">http://fr.topic-topos.com/chapelle-saint-gildas-ouessant</column>
+            <column name="development">Cette chapelle est liee au culte de saint Gildas, en breton Gweltaz, qui a donne son nom a la pointe nord-ouest d'Ouessant, Loqueltas. La presence d'une stele gauloise christianisee semble temoigner de la presence d'un lieu de culte prechretien. Les parcelles voisines, Ar-Cloistre, Mez-Monaster, indiquent, quant a elles, l'appartenance des lieux a un etablissement monastique. Un certain Felix, apres avoir ete moine a Ouessant, devient au XI&lt;SUP&gt;e&lt;/SUP&gt; siecle le reformateur de l'abbaye Saint-Gildas-de-Rhuys (Morbihan). L'edifice a ete presque entierement reconstruit en 1886.</column>
+            <column name="picture">res\Textures\_RELIGION\chapelle-saint-gildas-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34762</column>
+            <column name="parent_id">34761</column>
+            <column name="name">Stele</column>
+            <column name="url">http://fr.topic-topos.com/stele-ouessant</column>
+            <column name="development">Indiquant un lieu, lec'h, qui est aussi son nom en breton, cette stele de l'age du fer a ete christianisee au Moyen age comme en temoigne la croix gravee au sommet.</column>
+            <column name="picture">res\Textures\_RELIGION\stele-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34763</column>
+            <column name="parent_id">34761</column>
+            <column name="name">Fontaine Saint-Gildas</column>
+            <column name="url">http://fr.topic-topos.com/fontaine-saint-gildas-ouessant</column>
+            <column name="development">Cette construction se rapproche plus de celle d'un puits, avec escalier permettant l'acces a l'eau, que de celle d'une fontaine. Elle appartient a un type de monument qui existe ailleurs dans la commune et sur toute la côte du Leon. Selon la tradition, la fontaine contiendrait neuf pierres dont saint Gildas se serait servi pour lester son bateau.</column>
+            <column name="picture">res\Textures\_RELIGION\ontaine-saint-gildas-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34764</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Pyramide de Runiou</column>
+            <column name="url">http://fr.topic-topos.com/pyramide-de-runiou-ouessant</column>
+            <column name="development">Cette pyramide est un amer, construit a cet endroit en l'absence de tout point remarquable preexistant pour permettre aux navigateurs de faire route en s'alignant sur un point fixe de façon a eviter les dangers.</column>
+            <column name="picture">res\Textures\_PHARES\pyramide-de-runiou-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34765</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Gwasked</column>
+            <column name="url">http://fr.topic-topos.com/gwasked-ouessant</column>
+            <column name="development">Construits comme des etoiles a trois branches, ils permettaient aux animaux de choisir le côte vers lequel se refugier en fonction du vent. En pierres seches ou en mottes de gazon, ces abris autrefois nombreux sont desormais plus rares.</column>
+            <column name="picture">res\Textures\_NIOU\gwasked-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34766</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Caserne</column>
+            <column name="url">http://fr.topic-topos.com/caserne-ouessant</column>
+            <column name="development">Au debut du XX&lt;SUP&gt;e&lt;/SUP&gt; siecle, l'ile d'Ouessant a servi de garnison a une compagnie d'hommes de troupe susceptibles d'assurer la defense du lieu en cas d'attaque. Des troupes disciplinaires sont etablies dans une ile dont la majorite des hommes valides, naviguant au long cours, etaient absents durant de longues periodes. De nombreux desordres, dont certains connurent des suites judiciaires, ont ete provoques par les militaires. Pendant la Seconde Guerre mondiale, les casernes sont occupees par l'armee allemande.</column>
+            <column name="picture">res\Textures\_BATIMENTS\caserne-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34767</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Phare de la jument</column>
+            <column name="url">http://fr.topic-topos.com/phare-de-la-jument-ouessant</column>
+            <column name="development">La construction de ce phare sur la roche de La Jument, au sud-ouest de l'ile, a ete difficile, et jusqu'en 1903 aucune personne n'avait encore mis le pied a cet endroit. Charles-Eugene Potron, un entomologiste et grand voyageur, legue a l'etat la somme de 400 000 francs-or pour construire une tour dotee des derniers perfectionnements, sur un roc, dans les parages les plus dangereux du littoral atlantique, et cela dans les sept ans, sous peine de voir le legs changer de destinataire. Dans des conditions difficiles, le phare prend place sur le rocher Ar Gazek-Koz, La Vieille-Jument, dans une zone de courants violents. Les travaux sont acheves a temps, mais vingt annees supplementaires sont necessaires pour consolider l'edifice.</column>
+            <column name="picture">res\Textures\_PHARES\phare-de-la-jument-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34768</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Vestiges de la cloche sous-marine</column>
+            <column name="url">http://fr.topic-topos.com/vestiges-de-la-cloche-sous-marine-ouessant</column>
+            <column name="development">La cloche a ete supprimee en 1919.</column>
+            <column name="picture">res\Textures\_PHARES\vestiges-de-la-cloche-sous-marine-ouessant.jpg</column>
+        </table>
+        <table name="identite">
+            <column name="id_element">34769</column>
+            <column name="parent_id">NULL</column>
+            <column name="name">Phare de Nividic</column>
+            <column name="url">http://fr.topic-topos.com/phare-de-nividic-ouessant</column>
+            <column name="development">Entrepris sur le dernier rocher de la chaussee de Leurvas, a l'ouest de la pointe de Pern, le chantier de Nividic a dure vingt-quatre annees. Le phare est conçu d'emblee pour etre automatique. L'energie electrique produite au Creac'h est acheminee par une ligne aerienne qui necessite la construction de deux pylônes de beton sur les rochers de Conçu et de Kerzu. Une nacelle peut emprunter la meme voie pour assurer l'entretien du phare. Le systeme n'a pas ete reutilise apres la Seconde Guerre mondiale. Fonctionnant au gaz jusqu'en 1995, le phare est desormais dote de panneaux solaires qui alimentent un feu scintillant.</column>
+            <column name="picture">res\Textures\_PHARES\phare-de-nividic-ouessant.jpg</column>
         </table>
         <!-- Table localisation -->
         <table name="localisation">
-            <column name="id_element">0</column>
-            <column name="lieu">Niou-Hella</column>
-            <column name="gps">0</column>
-            <column name="epoque">XVIII - XIX</column>
+            <column name="id_element">34725</column>
+            <column name="locality">kerlann, Ouessant, France</column>
+            <column name="latitude">48.4566442586706</column>
+            <column name="longitude">-5.05937576293945</column>
+            <column name="epoque">-1800000 -2500</column>
         </table>
         <table name="localisation">
-            <column name="id_element">1</column>
-            <column name="lieu">Niou-Hella</column>
-            <column name="gps">0</column>
-            <column name="epoque">XIX</column>
+            <column name="id_element">34726</column>
+            <column name="locality">Kernoas, Ouessant, France</column>
+            <column name="latitude">48.4574411570829</column>
+            <column name="longitude">-5.09387969970703</column>
+            <column name="epoque">NULL</column>
         </table>
         <table name="localisation">
-            <column name="id_element">2</column>
-            <column name="lieu">Niou-Hella</column>
-            <column name="gps">0</column>
-            <column name="epoque">XVIII - XIX</column>
+            <column name="id_element">34727</column>
+            <column name="locality"> Le Stiff, Ouessant, France</column>
+            <column name="latitude">48.4709865162704</column>
+            <column name="longitude">-5.06040573120117</column>
+            <column name="epoque">1700 1900</column>
         </table>
         <table name="localisation">
-            <column name="id_element">3</column>
-            <column name="lieu">Niou-Hella</column>
-            <column name="gps">0</column>
-            <column name="epoque">XVIII - XIX</column>
+            <column name="id_element">34728</column>
+            <column name="locality">Pointe d'Arlan, Ouessant, France</column>
+            <column name="latitude">48.4568719452077</column>
+            <column name="longitude">-5.09611129760742</column>
+            <column name="epoque">NULL</column>
         </table>
         <table name="localisation">
-            <column name="id_element">4</column>
-            <column name="lieu">Niou-Hella</column>
-            <column name="gps">0</column>
-            <column name="epoque">XIX</column>
+            <column name="id_element">34729</column>
+            <column name="locality"> Poste, Ouessant, France</column>
+            <column name="latitude">48.4574411570829</column>
+            <column name="longitude">-5.09645462036133</column>
+            <column name="epoque">1701 1800</column>
         </table>
         <table name="localisation">
-            <column name="id_element">5</column>
-            <column name="lieu">Niou-Hella</column>
-            <column name="gps">0</column>
-            <column name="epoque">1880</column>
+            <column name="id_element">34730</column>
+            <column name="locality"> Niou-Huella, Ouessant, France</column>
+            <column name="latitude">48.460173285246</column>
+            <column name="longitude">-5.11104583740234</column>
+            <column name="epoque">1701 1900</column>
         </table>
-        <!-- Table mot-cle -->
-        <table name="mot-cle">
-            <column name="id_mot_cle">0</column>
-            <column name="id_element">0</column>
-            <column name="mot_cle">bâtiment</column>
+        <table name="localisation">
+            <column name="id_element">34731</column>
+            <column name="locality">Maison du Niou,  Niou-Huella, Ouessant, France</column>
+            <column name="latitude">48.460116367409</column>
+            <column name="longitude">-5.11053085327148</column>
+            <column name="epoque">1801 1900</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">1</column>
-            <column name="id_element">0</column>
-            <column name="mot_cle">quotidien</column>
+        <table name="localisation">
+            <column name="id_element">34732</column>
+            <column name="locality">Maison du Niou,  Niou-Huella, Ouessant, France</column>
+            <column name="latitude">48.4600879084666</column>
+            <column name="longitude">-5.11053085327148</column>
+            <column name="epoque">1701 1900</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">1</column>
-            <column name="id_element">1</column>
-            <column name="mot_cle">quotidien</column>
+        <table name="localisation">
+            <column name="id_element">34733</column>
+            <column name="locality">Maison du Niou,  Niou-Huella, Ouessant, France</column>
+            <column name="latitude">48.4601448263355</column>
+            <column name="longitude">-5.11057376861572</column>
+            <column name="epoque">1701 1900</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">1</column>
-            <column name="id_element">2</column>
-            <column name="mot_cle">quotidien</column>
+        <table name="localisation">
+            <column name="id_element">34734</column>
+            <column name="locality">Maison du Niou,  Niou-Huella, Ouessant, France</column>
+            <column name="latitude">48.4601448263355</column>
+            <column name="longitude">-5.11078834533691</column>
+            <column name="epoque">1801 1900</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">1</column>
-            <column name="id_element">3</column>
-            <column name="mot_cle">quotidien</column>
+        <table name="localisation">
+            <column name="id_element">34735</column>
+            <column name="locality">Maison du Niou,  Niou-Huella, Ouessant, France</column>
+            <column name="latitude">48.460173285246</column>
+            <column name="longitude">-5.11035919189453</column>
+            <column name="epoque">NULL</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">0</column>
-            <column name="id_element">4</column>
-            <column name="mot_cle">bâtiment</column>
+        <table name="localisation">
+            <column name="id_element">34736</column>
+            <column name="locality"> Musee des Traditions ouessantines, Ouessant, France</column>
+            <column name="latitude">48.4576688400461</column>
+            <column name="longitude">-5.09628295898438</column>
+            <column name="epoque">1901 2000</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">1</column>
-            <column name="id_element">4</column>
-            <column name="mot_cle">quotidien</column>
+        <table name="localisation">
+            <column name="id_element">34737</column>
+            <column name="locality">Musee des Traditions ouessantines, Ouessant, France</column>
+            <column name="latitude">48.4602871207284</column>
+            <column name="longitude">-5.11070251464844</column>
+            <column name="epoque">1901 2000</column>
         </table>
-        <table name="mot-cle">
-            <column name="id_mot_cle">4</column>
-            <column name="id_element">5</column>
-            <column name="mot_cle">religieux</column>
+        <table name="localisation">
+            <column name="id_element">34738</column>
+            <column name="locality">Phare de Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4544811856389</column>
+            <column name="longitude">-5.08769989013672</column>
+            <column name="epoque">1901 2000</column>
         </table>
-        <!-- Table parent-enfants -->
-        <table name="parent-enfants">
-            <column name="id_relation_pe">0</column>
-            <column name="id_element">0</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">1</column>
+        <table name="localisation">
+            <column name="id_element">34739</column>
+            <column name="locality">Reflecteurs de phare, Phare de Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4549650389239</column>
+            <column name="longitude">-5.08830070495605</column>
+            <column name="epoque">NULL</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">1</column>
-            <column name="id_element">0</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">2</column>
+        <table name="localisation">
+            <column name="id_element">34740</column>
+            <column name="locality">Reflecteurs de phare, Phare de Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4547942677028</column>
+            <column name="longitude">-5.08808612823486</column>
+            <column name="epoque">NULL</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">2</column>
-            <column name="id_element">0</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">3</column>
+        <table name="localisation">
+            <column name="id_element">34741</column>
+            <column name="locality">Reflecteurs de phare, Phare de Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4549365770936</column>
+            <column name="longitude">-5.08825778961182</column>
+            <column name="epoque">NULL</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">3</column>
-            <column name="id_element">0</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">4</column>
+        <table name="localisation">
+            <column name="id_element">34742</column>
+            <column name="locality">Reflecteurs de phare, Phare de Creac'h, Ouessant, France</column>
+            <column name="latitude">48.454851191507</column>
+            <column name="longitude">-5.08825778961182</column>
+            <column name="epoque">1901 2000</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">4</column>
-            <column name="id_element">0</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">5</column>
+        <table name="localisation">
+            <column name="id_element">34743</column>
+            <column name="locality">Reflecteurs de phare, Phare de Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4549365770936</column>
+            <column name="longitude">-5.08838653564453</column>
+            <column name="epoque">1901 2000</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">5</column>
-            <column name="id_element">1</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">0</column>
+        <table name="localisation">
+            <column name="id_element">34744</column>
+            <column name="locality"> Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4547088818768</column>
+            <column name="longitude">-5.08821487426758</column>
+            <column name="epoque">1801 2000</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">6</column>
-            <column name="id_element">2</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">0</column>
+        <table name="localisation">
+            <column name="id_element">34745</column>
+            <column name="locality"> Toulalan, Ouessant, France</column>
+            <column name="latitude">48.4477636872284</column>
+            <column name="longitude">-5.09061813354492</column>
+            <column name="epoque">1801 1900</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">7</column>
-            <column name="id_element">3</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">0</column>
+        <table name="localisation">
+            <column name="id_element">34746</column>
+            <column name="locality"> Ouessant, France</column>
+            <column name="latitude">48.4556196566171</column>
+            <column name="longitude">-5.09868621826172</column>
+            <column name="epoque">1801 1900</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">8</column>
-            <column name="id_element">4</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">0</column>
+        <table name="localisation">
+            <column name="id_element">34747</column>
+            <column name="locality">Gendarmerie, Ouessant, France</column>
+            <column name="latitude">48.4573273152184</column>
+            <column name="longitude">-5.09593963623047</column>
+            <column name="epoque">1801 1900</column>
         </table>
-        <table name="parent-enfants">
-            <column name="id_relation_pe">9</column>
-            <column name="id_element">5</column>
-            <column name="id_element_parent">0</column>
-            <column name="id_element_enfant">0</column>
+        <table name="localisation">
+            <column name="id_element">34748</column>
+            <column name="locality">Karaes, Ouessant, France</column>
+            <column name="latitude">48.4568719452077</column>
+            <column name="longitude">-5.12134552001953</column>
+            <column name="epoque">1801 1900</column>
         </table>
-        <!-- Table semblable -->
-        <!--<table name="semblable">
-            <column name="id_relation_se">0</column>
-            <column name="id_element">0</column>
-            <column name="id_element_semblable">1</column>
+        <table name="localisation">
+            <column name="id_element">34749</column>
+            <column name="locality"> Kerber, Ouessant, France</column>
+            <column name="latitude">48.4594902669904</column>
+            <column name="longitude">-5.06641387939453</column>
+            <column name="epoque">NULL</column>
         </table>
-        <table name="semblable">
-            <column name="id_relation_se">0</column>
-            <column name="id_element">1</column>
-            <column name="id_element_semblable">0</column>
-        </table>-->
+        <table name="localisation">
+            <column name="id_element">34750</column>
+            <column name="locality"> Ouessant, France</column>
+            <column name="latitude">48.4574411570829</column>
+            <column name="longitude">-5.09525299072266</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34751</column>
+            <column name="locality">eglise Saint-Paul-Aurelien,  Ouessant, France</column>
+            <column name="latitude">48.4569857880933</column>
+            <column name="longitude">-5.09533882141113</column>
+            <column name="epoque">1401 1500</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34752</column>
+            <column name="locality">eglise Saint-Paul-Aurelien,  Ouessant, France</column>
+            <column name="latitude">48.4569288666824</column>
+            <column name="longitude">-5.09521007537842</column>
+            <column name="epoque">1801 1900</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34753</column>
+            <column name="locality">eglise Saint-Paul-Aurelien,  Ouessant, France</column>
+            <column name="latitude">48.4570142487748</column>
+            <column name="longitude">-5.09521007537842</column>
+            <column name="epoque">1801 1900</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34754</column>
+            <column name="locality">Cimetiere, Ouessant, France</column>
+            <column name="latitude">48.4569857880933</column>
+            <column name="longitude">-5.09576797485352</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34755</column>
+            <column name="locality">Cimetiere, Ouessant, France</column>
+            <column name="latitude">48.4574411570829</column>
+            <column name="longitude">-5.09525299072266</column>
+            <column name="epoque">1901 2000</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34756</column>
+            <column name="locality">Ouessant, France</column>
+            <column name="latitude">48.4572134730987</column>
+            <column name="longitude">-5.09611129760742</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34757</column>
+            <column name="locality"> Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4545950338855</column>
+            <column name="longitude">-5.08804321289062</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34758</column>
+            <column name="locality">Porglaz, Ouessant, France</column>
+            <column name="latitude">48.4573273152184</column>
+            <column name="longitude">-5.09611129760742</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34759</column>
+            <column name="locality"> Ouessant, France</column>
+            <column name="latitude">48.4535703904758</column>
+            <column name="longitude">-5.09593963623047</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34760</column>
+            <column name="locality"> Pern, Ouessant, France</column>
+            <column name="latitude">48.4537980907983</column>
+            <column name="longitude">-5.13078689575195</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34761</column>
+            <column name="locality">Ouessant, France</column>
+            <column name="latitude">48.4578965219881</column>
+            <column name="longitude">-5.09628295898438</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34762</column>
+            <column name="locality">Chapelle Saint-Gildas, Ouessant, France</column>
+            <column name="latitude">48.4574980779195</column>
+            <column name="longitude">-5.09615421295166</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34763</column>
+            <column name="locality">Chapelle Saint-Gildas, Ouessant, France</column>
+            <column name="latitude">48.4575265383138</column>
+            <column name="longitude">-5.09628295898438</column>
+            <column name="epoque">1601 1900</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34764</column>
+            <column name="locality">Feuntenn-Velen, Ouessant, France</column>
+            <column name="latitude">48.4573273152184</column>
+            <column name="longitude">-5.09576797485352</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34765</column>
+            <column name="locality">Porz-Chilin, Ouessant, France</column>
+            <column name="latitude">48.4574411570829</column>
+            <column name="longitude">-5.09611129760742</column>
+            <column name="epoque">1901 2000</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34766</column>
+            <column name="locality">Stang-ar-Glan, Ouessant, France</column>
+            <column name="latitude">48.4592625921963</column>
+            <column name="longitude">-5.0947380065918</column>
+            <column name="epoque">1901 2000</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34767</column>
+            <column name="locality">Pointe d'Ouessant, Ouessant, France</column>
+            <column name="latitude">48.4573273152184</column>
+            <column name="longitude">-5.09628295898438</column>
+            <column name="epoque">NULL</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34768</column>
+            <column name="locality"> Creac'h, Ouessant, France</column>
+            <column name="latitude">48.4588072395447</column>
+            <column name="longitude">-5.13301849365234</column>
+            <column name="epoque">1901 1934</column>
+        </table>
+        <table name="localisation">
+            <column name="id_element">34769</column>
+            <column name="locality">Pointe nord-ouest, Ouessant, France</column>
+            <column name="latitude">48.4849833824922</column>
+            <column name="longitude">-5.07259368896484</column>
+            <column name="epoque">1912 1936</column>
+        </table>
+        <!-- Table mots_cles -->
+        <table name="mots_cles">
+            <column name="id_mot_cle">3066</column>
+            <column name="id_element">34725</column>
+            <column name="mot_cle">Megalithe</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2766</column>
+            <column name="id_element">34726</column>
+            <column name="mot_cle">Chateau</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34727</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3024</column>
+            <column name="id_element">34728</column>
+            <column name="mot_cle">Calvaire</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2781</column>
+            <column name="id_element">34729</column>
+            <column name="mot_cle">Maison</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3320</column>
+            <column name="id_element">34729</column>
+            <column name="mot_cle">Demeure</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2781</column>
+            <column name="id_element">34730</column>
+            <column name="mot_cle">Maison</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2781</column>
+            <column name="id_element">34731</column>
+            <column name="mot_cle">Maison</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2842</column>
+            <column name="id_element">34732</column>
+            <column name="mot_cle">Cheminee</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2885</column>
+            <column name="id_element">34733</column>
+            <column name="mot_cle">Puits</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2327</column>
+            <column name="id_element">34734</column>
+            <column name="mot_cle">Creche</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3294</column>
+            <column name="id_element">34735</column>
+            <column name="mot_cle">Costume traditionnel</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3483</column>
+            <column name="id_element">34736</column>
+            <column name="mot_cle">Objet museal</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3294</column>
+            <column name="id_element">34736</column>
+            <column name="mot_cle">Costume traditionnel</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3087</column>
+            <column name="id_element">34737</column>
+            <column name="mot_cle">Croix</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3190</column>
+            <column name="id_element">34737</column>
+            <column name="mot_cle">Ceremonie</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34738</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2675</column>
+            <column name="id_element">34739</column>
+            <column name="mot_cle">Lampe</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34739</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2675</column>
+            <column name="id_element">34740</column>
+            <column name="mot_cle">Lampe</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34740</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3264</column>
+            <column name="id_element">34741</column>
+            <column name="mot_cle">Maquette</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34742</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3264</column>
+            <column name="id_element">34743</column>
+            <column name="mot_cle">Maquette</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34744</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2885</column>
+            <column name="id_element">34745</column>
+            <column name="mot_cle">Puits</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2552</column>
+            <column name="id_element">34746</column>
+            <column name="mot_cle">Port</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2704</column>
+            <column name="id_element">34747</column>
+            <column name="mot_cle">Entrepôt</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2596</column>
+            <column name="id_element">34748</column>
+            <column name="mot_cle">Moulin a vent</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2992</column>
+            <column name="id_element">34749</column>
+            <column name="mot_cle">Chapelle</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2995</column>
+            <column name="id_element">34750</column>
+            <column name="mot_cle">eglise</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3124</column>
+            <column name="id_element">34751</column>
+            <column name="mot_cle">Statue</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3051</column>
+            <column name="id_element">34752</column>
+            <column name="mot_cle">Tronc</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3187</column>
+            <column name="id_element">34753</column>
+            <column name="mot_cle">Tombe</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3187</column>
+            <column name="id_element">34754</column>
+            <column name="mot_cle">Tombe</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3163</column>
+            <column name="id_element">34755</column>
+            <column name="mot_cle">Monument aux morts</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2228</column>
+            <column name="id_element">34756</column>
+            <column name="mot_cle">Tour</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34757</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3006</column>
+            <column name="id_element">34758</column>
+            <column name="mot_cle">Vestige de monument cultuel</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2552</column>
+            <column name="id_element">34759</column>
+            <column name="mot_cle">Port</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3006</column>
+            <column name="id_element">34760</column>
+            <column name="mot_cle">Vestige de monument cultuel</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2992</column>
+            <column name="id_element">34761</column>
+            <column name="mot_cle">Chapelle</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3185</column>
+            <column name="id_element">34762</column>
+            <column name="mot_cle">Stele antique</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3024</column>
+            <column name="id_element">34762</column>
+            <column name="mot_cle">Calvaire</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2857</column>
+            <column name="id_element">34763</column>
+            <column name="mot_cle">Fontaine</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2541</column>
+            <column name="id_element">34764</column>
+            <column name="mot_cle">Amer</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3385</column>
+            <column name="id_element">34765</column>
+            <column name="mot_cle">Abri naturel</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2192</column>
+            <column name="id_element">34766</column>
+            <column name="mot_cle">Caserne</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34767</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">3500</column>
+            <column name="id_element">34768</column>
+            <column name="mot_cle">signalisation maritime</column>
+        </table>
+        <table name="mots_cles">
+            <column name="id_mot_cle">2550</column>
+            <column name="id_element">34769</column>
+            <column name="mot_cle">Phare</column>
+        </table>
+        <!-- Table parent_enfant -->
+        <table name="parent_enfant">
+            <column name="id_element">34725</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34726</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34727</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34728</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34729</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34730</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34731</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34730</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34732</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34730</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34733</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34730</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34734</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34730</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34735</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34731</column>
+            <column name="id_element_parent">34730</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34732</column>
+            <column name="id_element_parent">34730</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34733</column>
+            <column name="id_element_parent">34730</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34734</column>
+            <column name="id_element_parent">34730</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34735</column>
+            <column name="id_element_parent">34730</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34736</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34737</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34738</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34739</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34738</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34740</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34738</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34741</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34738</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34742</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34738</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34743</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34739</column>
+            <column name="id_element_parent">34738</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34740</column>
+            <column name="id_element_parent">34738</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34741</column>
+            <column name="id_element_parent">34738</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34742</column>
+            <column name="id_element_parent">34738</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34743</column>
+            <column name="id_element_parent">34738</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34744</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34745</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34746</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34747</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34748</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34749</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34750</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34751</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34750</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34752</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34750</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34753</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34751</column>
+            <column name="id_element_parent">34750</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34752</column>
+            <column name="id_element_parent">34750</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34753</column>
+            <column name="id_element_parent">34750</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34754</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34755</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34756</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34757</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34758</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34759</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34760</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34761</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34762</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34761</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">34763</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34762</column>
+            <column name="id_element_parent">34761</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34763</column>
+            <column name="id_element_parent">34761</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34764</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34765</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34766</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34767</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34768</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
+        <table name="parent_enfant">
+            <column name="id_element">34769</column>
+            <column name="id_element_parent">NULL</column>
+            <column name="id_element_enfant">NULL</column>
+        </table>
     </database>
 </pma_xml_export>

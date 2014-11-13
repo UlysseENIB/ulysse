@@ -7,11 +7,12 @@
 #include "Boid.h"
 #include "Behavior.h"
 
-Boid::Boid(long int id, string name, string url, string description){
+Boid::Boid(long int id, string name, string url, string description, string picture){
 	_id = id;
 	_name = name;
 	_url = url;
 	_description = description;
+	_picture = picture;
 	//random positionning
 	float x = static_cast<float>(rand() % MAX_X);
 	float y = static_cast<float>(rand() % MAX_Y);

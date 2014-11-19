@@ -41,6 +41,7 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 		char* picture = NULL;
 		char* url = NULL;
 		char* description = NULL;
+		GLuint texId = NULL;
 		for (it = node->children; it; it = it->next) {
 			if (it->type == XML_ELEMENT_NODE) {
 				if (xmlStrEqual(it->name, xmlCharStrdup("column"))) {
@@ -62,6 +63,8 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 						}
 						else if (xmlStrEqual(content->name, xmlCharStrdup("picture"))){
 							picture = (char*)content->value;
+							TextureLoader* textureLoader = new TextureLoader();
+							texId = textureLoader->init(picture);
 						}
 						else if (xmlStrEqual(content->name, xmlCharStrdup("url"))){
 							url = (char*)content->value;
@@ -73,7 +76,7 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 				}
 			}
 		}
-		Boid* boid = new Boid(id_element, name, url, description, picture);
+		Boid* boid = new Boid(id_element, name, url, description, texId);
 		grid.addToGrid(boid);
 	}
 	// for each table localisation

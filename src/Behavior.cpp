@@ -42,16 +42,32 @@ float* Behavior::flocking(Boid* theBoid, vector <Boid*> *boids, float* futurePos
 	float cohCount = 0;
 	float alignX = 0, alignY = 0, alignZ = 0;	//Stores the average X/Y direction
 	float alignCount = 0;			//Stores the number of directions
+
+	float keywordX = 0, keywordY = 0, keywordZ = 0;	//Stores the average X/Y direction
+	float keywordCount = 0;			//Stores the number of directions
 	for (unsigned int i = 0; i < boids->size(); i++)
 	{
 		Boid* boidAtI = boids->at(i);
 		if (boidAtI->getId() != theBoid->getId()){
+			for (int j = theBoid->getKeyword().size() - 1; j > 0; j--){
+				for (int k = boidAtI->getKeyword().size() - 1; k > 0; k--){
+					if (theBoid->getKeyword().at(j) == boidAtI->getKeyword().at(k))
+					{
+						float dirXTmp = boidAtI->dirX();
+						float dirYTmp = boidAtI->dirY();
+						float dirZTmp = boidAtI->dirZ();
+						keywordX += boidAtI->getX() + dirXTmp; //Add the boids[i] current X position
+						keywordY += boidAtI->getY() + dirYTmp; //Add the boids[i] current Y position
+						keywordZ += boidAtI->getZ() + dirZTmp; //Add the boids[i] current Z position
+						keywordCount++;
+					}
+				}
+			}
 			float distance = theBoid->getDistance(theBoid, boidAtI);
 			if (distance < (RADIUS_SEPARATION))
 			{
 				sepX += boidAtI->getX();// + boids[i]->dirX();	//Get the average FUTURE positions of the nearby boids, X
 				sepY += boidAtI->getY();// + boids[i]->dirY();	//Get the average FUTURE positions of the nearby boids, Y
-
 				sepZ += boidAtI->getZ();// + boids[i]->dirZ();	//Get the average FUTURE positions of the nearby boids, Z
 				sepCount++;
 			}
@@ -71,9 +87,13 @@ float* Behavior::flocking(Boid* theBoid, vector <Boid*> *boids, float* futurePos
 			}
 		}
 	}
-	futurePosition = cohesion(theBoid, cohX, cohY, cohZ, cohCount, futurePosition);
+	/*		}
+		}
+	}*/
+	//futurePosition = cohesion(theBoid, cohX, cohY, cohZ, cohCount, futurePosition);
 	futurePosition = separation(theBoid, sepX, sepY, sepZ, sepCount, futurePosition);
 	futurePosition = alignment(theBoid, alignX, alignY, alignZ, alignCount, futurePosition);
+	futurePosition = keyword(theBoid, keywordX, keywordY, keywordZ, keywordCount, futurePosition);
 	return futurePosition;
 }
 
@@ -139,6 +159,13 @@ float* Behavior::alignment(Boid* theBoid, float alignX, float alignY, float alig
 		futurePosition[1] += alignY * (float)ALIGNEMENT;		//Add the averaged out movement * weighting to the new movement direction
 		futurePosition[2] += alignZ * (float)ALIGNEMENT;
 	}
+	return futurePosition;
+}
+
+
+float* Behavior::keyword(Boid* theBoid, float keywordX, float keywordY, float keywordZ, float keywordCount, float* futurePosition)
+{
+	futurePosition = cohesion(theBoid, keywordX, keywordY, keywordZ, keywordCount, futurePosition);
 	return futurePosition;
 }
 

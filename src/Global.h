@@ -14,8 +14,11 @@
 #include <GL/glut.h>
 #endif
 
-#include "math.h"
-#include <algorithm>
+#include <libpng\png.h>
+
+
+#include <math.h>
+
 #include <ctime>
 #include <exception>
 #include <iostream>
@@ -23,6 +26,7 @@
 #include <random>
 #include <stdio.h>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 

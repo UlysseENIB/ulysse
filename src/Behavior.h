@@ -26,7 +26,9 @@ public:
 	//rule alignement
 	float* alignment(Boid* theboid, float alignX, float alignY, float alignZ, float alignCount, float* futurePosition);
 	
+	//rule alignement
+	float* keyword(Boid* theboid, float keywordX, float keywordY, float keywordZ, float keywordCount, float* futurePosition);
+
 	//apply one bounce on a wall
 	float* wall_bounce(Boid* theboid, float* futurePosition);
 };
-

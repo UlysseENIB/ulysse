@@ -16,7 +16,7 @@ private:
 	string _name;
 	string _url;
 	string _description;
-	string _picture;
+	GLuint _picture;
 	string _lieu;
 	float _gps[2];			// MAYBE
 	string _epoque;			// MAYBE
@@ -31,7 +31,7 @@ private:
 	string _color;
 	// --
 public:
-	Boid(long int id, string name, string url, string description, string picture);
+	Boid(long int id, string name, string url, string description, GLuint picture);
 	virtual ~Boid();
 
 	float* move(vector <Boid*> *boids); //computes new position
@@ -47,7 +47,7 @@ public:
 	string getName(){ return _name; }
 	string getUrl(){ return _url; }
 	string getDescription(){ return _description; }
-	string getPicture(){ return _picture; }
+	GLuint getPicture(){ return _picture; }
 	string getLieu(){ return _lieu; }
 	void setLieu(string lieu){ _lieu = lieu; }
 	float* getGPS(){ return _gps; }

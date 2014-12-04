@@ -6,13 +6,12 @@
 // Description : Ulysse code in C++
 //============================================================================
 
-#include <libpng\png.h>
-
 #include "Boid.h"
 #include "Grid.h"
 #include "Parser.h"
 #include "Global.h"
 #include "textureLoader.h"
+#include "Camera.h"
 
 void computePos(float deltaMove);
 
@@ -26,8 +25,6 @@ float lx = 0.0f, lz = -1.0f;
 // XZ position of the camera
 float x = 200.0f, a = 200.0f, z = 500.0f;
 
-float deltaAngle = 0.0f;
-float deltaMove = 0;
 
 int xOrigin = -1;
 
@@ -35,7 +32,24 @@ Parser* parser = new Parser();
 TextureLoader* textureLoader = new TextureLoader();
 GLuint texId;
 
-//Repère du monde
+Camera* camera = new Camera();
+//float camX, camY, camZ;
+
+Camera g_camera;
+bool g_key[256];
+bool g_shift_down = false;
+bool g_fps_mode = false;
+int g_viewport_width = 0;
+int g_viewport_height = 0;
+bool g_mouse_left_down = false;
+bool g_mouse_right_down = false;
+
+// Movement settings
+const float g_translation_speed = 10;
+const float g_rotation_speed = PI/180*0.2;
+
+
+//Repï¿½re du monde
 void worldCoordinateSystem(int size)
 {
 	glBegin(GL_LINES);
@@ -53,16 +67,17 @@ display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(x, a, z,
-		x + lx, a, z + lz,
-		0.0f, 1.0f, 0.0f);
 
-	if (deltaMove)
-		computePos(deltaMove);
+	//if (deltaMove)
+	//	computePos(deltaMove);
+
+	g_camera.Refresh();
+	//gluLookAt(x, a, z,
+	//	x + lx, a, z + lz,
+	//	0.0f, 1.0f, 0.0f);
 
 	//glColor3f(0,0,0);
 	worldCoordinateSystem(500);
-
 
 
 	//Draw boids
@@ -114,6 +129,9 @@ reshape(int w, int h)
 	if (h == 0)
 		h = 1;
 
+	g_viewport_width = w;
+	g_viewport_height = h;
+
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 
 	glMatrixMode(GL_PROJECTION);
@@ -153,38 +171,37 @@ void run(int value)
 	glutTimerFunc(10, run, 1);
 }
 
-
-void pressKey(int key, int xx, int yy) {
-	switch (key)
-	{
-	case GLUT_KEY_UP: deltaMove = 10; break;
-	case GLUT_KEY_DOWN: deltaMove = -10; break;
-	}
-}
-
+/*
 void processNormalKeys(unsigned char key, int x, int y)
 {
 	switch (key) {
-	case 'z': a += 10.0f; break;
-	case 's': a -= 10.0f; break;
+	//case 'z': a += 10.0f; break;
+	//case 's': a -= 10.0f; break;
+
+	case 'z':
+		cout << "z pressed" << endl;
+        g_camera.Move(g_translation_speed);
+        break;
+	case 's':
+        g_camera.Move(-g_translation_speed);
+        break;
+	case 'q':
+        g_camera.Strafe(g_translation_speed);
+        break;
+	case 'd':
+        g_camera.Strafe(-g_translation_speed);
+        break;
 	}
 }
+*/
 
-
-
-void releaseKey(int key, int x, int y) {
-	switch (key) {
-	case GLUT_KEY_UP: deltaMove = 0; break;
-	case GLUT_KEY_DOWN: deltaMove = 0; break;
-	}
-}
 
 void computePos(float deltaMove) {
 
 	x += deltaMove * lx * 0.1f;
 	z += deltaMove * lz * 0.1f;
 }
-
+/*
 void mouseMove(int x, int y) {
 
 	// this will only be true when the left button is down
@@ -207,13 +224,14 @@ void mouseButton(int button, int state, int x, int y) {
 		// when the button is released
 		if (state == GLUT_UP) {
 			angle += deltaAngle;
+			cout << "angle : " << angle << endl;
 			xOrigin = -1;
 		}
 		else  {// state = GLUT_DOWN
 			xOrigin = x;
 		}
 	}
-}
+}*/
 
 GLuint init(const char *filename)
 {
@@ -245,6 +263,101 @@ GLuint init(const char *filename)
 	return texId;
 }
 
+
+void Keyboard(unsigned char key, int x, int y)
+{
+    if(key == 27) {
+        exit(0);
+    }
+
+    if(key == ' ') {
+        g_fps_mode = !g_fps_mode;
+
+        if(g_fps_mode) {
+            glutSetCursor(GLUT_CURSOR_NONE);
+            glutWarpPointer(g_viewport_width/2, g_viewport_height/2);
+        }
+        else {
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+        }
+    }
+
+    switch(key)
+    {
+		case 'z':
+			g_camera.Move(g_translation_speed);
+			break;
+		case 's':
+			g_camera.Move(-g_translation_speed);
+			break;
+		case 'q':
+			g_camera.Strafe(g_translation_speed);
+			break;
+		case 'd':
+			g_camera.Strafe(-g_translation_speed);
+			break;
+    }
+    g_key[key] = true;
+}
+
+void KeyboardUp(unsigned char key, int x, int y)
+{
+    g_key[key] = false;
+}
+
+
+void mouseButton(int button, int state, int x, int y)
+{
+	/*
+    if(state == GLUT_DOWN) {
+        if(button == GLUT_LEFT_BUTTON) {
+            g_mouse_left_down = true;
+        }
+        else if(button == GLUT_RIGHT_BUTTON) {
+            g_mouse_right_down = true;
+        }
+    }
+    else if(state == GLUT_UP) {
+        if(button == GLUT_LEFT_BUTTON) {
+            g_mouse_left_down = false;
+        }
+        else if(button == GLUT_RIGHT_BUTTON) {
+            g_mouse_right_down = false;
+        }
+    }*/
+}
+
+
+void mouseMove(int x, int y)
+{
+    // This variable is hack to stop glutWarpPointer from triggering an event callback to Mouse(...)
+    // This avoids it being called recursively and hanging up the event loop
+    static bool just_warped = false;
+
+    if(just_warped) {
+        just_warped = false;
+        return;
+    }
+
+    if(g_fps_mode) {
+
+        int dx = x - g_viewport_width/2;
+        int dy = y - g_viewport_height/2;
+        if(dx) {
+            g_camera.RotateYaw(g_rotation_speed*dx);
+        }
+
+        if(dy) {
+            g_camera.RotatePitch(g_rotation_speed*dy);
+        }
+
+        glutWarpPointer(g_viewport_width/2, g_viewport_height/2);
+
+        just_warped = true;
+    }
+}
+
+
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv); // to initialize the toolkit;
@@ -257,10 +370,10 @@ int main(int argc, char **argv)
 	//glutFullScreen();           // making the window full screen
 	glClearColor(1.0, 1.0, 1.0, 0.0); // sets background color to white
 
-	glutIgnoreKeyRepeat(1);
-	glutSpecialFunc(pressKey);
-	glutSpecialUpFunc(releaseKey);
-	glutKeyboardFunc(processNormalKeys);
+	//glutIgnoreKeyRepeat(1);
+	//glutSpecialFunc(pressKey);
+	//glutSpecialUpFunc(releaseKey);
+	glutKeyboardFunc(Keyboard);
 
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMove);

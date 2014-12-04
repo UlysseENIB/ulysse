@@ -6,7 +6,6 @@
 */
 #pragma once
 
-//#include "Behavior.h"
 #include "Global.h"
 
 class Boid {
@@ -16,6 +15,7 @@ private:
 	string _name;
 	string _url;
 	string _description;
+	bool _state;
 	GLuint _picture;
 	string _lieu;
 	float _gps[2];			// MAYBE
@@ -27,17 +27,19 @@ private:
 	float _position[3];
 	float _speed;
 	float _directionXY, _directionZ;
-	// to delete --
-	string _color;
-	// --
+	std::vector<float> _keywordVector;
+
 public:
-	Boid(long int id, string name, string url, string description, GLuint picture);
+	Boid(long int id, string name, string url, string description, bool state, GLuint picture);
 	virtual ~Boid();
 
 	float* move(vector <Boid*> *boids); //computes new position
 
 	float getDistance(Boid *boid1, Boid *boid2); //distance between 2 boid
 	float distance_to_pos(float x, float y, float z); //distance between two points
+	float distanceNDimension(vector<float> vecA, vector<float> vecB); // distance between vector
+
+	std::vector<float> determineKeywordVector();
 
 	float dirX();
 	float dirY();
@@ -48,6 +50,10 @@ public:
 	string getUrl(){ return _url; }
 	string getDescription(){ return _description; }
 	GLuint getPicture(){ return _picture; }
+
+	bool getState(){return _state;}
+	void setState(bool state){_state = state;}
+
 	string getLieu(){ return _lieu; }
 	void setLieu(string lieu){ _lieu = lieu; }
 	float* getGPS(){ return _gps; }
@@ -60,6 +66,8 @@ public:
 
 	vector<string> getKeyword(){ return _keyword; }
 	void addKeyword(string keyword){ _keyword.push_back(keyword); }
+	std::vector<float> getKeywordVector(){ return _keywordVector; }
+	void setKeywordVector(std::vector<float> keywordVector){ _keywordVector = keywordVector; }
 
 	int getIdParent(){ return _idParent; }
 	void setIdParent(int idParent){ _idParent = idParent; }
@@ -75,11 +83,6 @@ public:
 	void setDirectionZ(float direction){ _directionZ = direction; }
 	float getSpeed(){ return _speed; }
 	void setSpeed(float speed){ _speed = speed; }
-
-	// to delete--
-	void setColor(string color){ _color = color; };
-	string getColor(){ return _color;}
-	//--
 
 	float getX(){ return _position[0]; }
 	float getY(){ return _position[1]; }

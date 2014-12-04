@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 guillaume Kermarrec. All rights reserved.
 //
 
-#include "grid.h"
+#include "Grid.h"
 
 void Grid::createGrid(int nbCase, bool randomGeneration){
 	setNbCase(nbCase);
@@ -19,8 +19,8 @@ void Grid::createGrid(int nbCase, bool randomGeneration){
 }
 
 /**
-* CrÈation d'une grille avec un nomber nbLigne de ligne et nbColonne de colonne
-* Les boids sont par la suite alÈatoirement rÈpartis dans l'espace
+* Crï¿½ation d'une grille avec un nomber nbLigne de ligne et nbColonne de colonne
+* Les boids sont par la suite alï¿½atoirement rï¿½partis dans l'espace
 */
 void Grid::generateList(int nbLigne, int nbColonne, int nbRang, bool randomGeneration){
 
@@ -95,7 +95,7 @@ void Grid::updateOnGrid(Boid *boids, float* position, int caseActuelle[3]){
 		boids->setPosition(position);
 	}
 	else{
-		//Update la donnée
+		//Update la donnï¿½e
 		for (unsigned int numberBoids = 0; numberBoids<_boidsParCases_vectorDelete->size(); numberBoids++) {
 			if (_boidsParCases_vectorDelete->at(numberBoids)->getId() == boids->getId()){
 				_boidsParCases_vectorDelete->erase(_boidsParCases_vectorDelete->begin() + numberBoids);

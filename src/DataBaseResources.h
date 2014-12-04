@@ -24,7 +24,7 @@
 */
 struct KeywordStruct
 {
-	KeywordStruct::KeywordStruct(string value, Boid* boid){
+	KeywordStruct(string value, Boid* boid){
 		_listBoids = new std::vector<Boid*>();
 		_value = value;
 		_listBoids->push_back(boid);
@@ -37,7 +37,7 @@ struct KeywordStruct
 
 struct EnfantStruct
 {
-	EnfantStruct::EnfantStruct(int value, Boid* boid){
+	EnfantStruct(int value, Boid* boid){
 		_listBoids = new std::vector<Boid*>();
 		_value = value;
 		_listBoids->push_back(boid);

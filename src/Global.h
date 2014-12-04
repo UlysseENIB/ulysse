@@ -14,11 +14,9 @@
 #include <GL/glut.h>
 #endif
 
-#include <libpng\png.h>
-
+#include <libpng/png.h>
 
 #include <math.h>
-
 #include <ctime>
 #include <exception>
 #include <iostream>
@@ -27,6 +25,8 @@
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
+#include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -53,7 +53,10 @@ using namespace std;
 #define ALIGNEMENT 0.1
 
 //radius of boid
-#define RADIUS_SEPARATION 10
-#define RADIUS_COHESION 30
+#define RADIUS_SEPARATION 40
+#define RADIUS_COHESION 120
 
 #define PI atan(1) * 4
+
+extern float camX, camY, camZ;
+extern float vecDirX, vecDirY, vecDirZ;

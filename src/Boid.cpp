@@ -7,31 +7,32 @@
 #include "Boid.h"
 #include "Behavior.h"
 
-Boid::Boid(long int id, string name, string url, string description, GLuint picture){
+Boid::Boid(long int id, string name, string url, string description, bool state, GLuint picture){
 	_id = id;
 	_name = name;
 	_url = url;
 	_description = description;
+	_state = state;
 	_picture = picture;
 	//random positionning
 	float x = static_cast<float>(rand() % MAX_X);
 	float y = static_cast<float>(rand() % MAX_Y);
-	float z = static_cast<float>(rand() % MAX_Z);
-	//float z = 0;
+	//float z = static_cast<float>(rand() % MAX_Z);
+	float z = 0;
 
 	float pos[3] = { x, y, z };
 	this->setPosition(pos);
 	float angleXY = rand() % (360);
 	angleXY = angleXY / 180 * PI;
-	float angleZ = rand() % (360) / 180 * PI;
-	//float angleZ = 0;
-	float speed = 5;// (rand() % 10 + 1);
+	//float angleZ = rand() % (360) / 180 * PI;
+	float angleZ = 0;
+	float speed = 2;// (rand() % 10 + 1);
 	
-	float col = rand() % 2;
-	string couleur;
-	if (col == 1) couleur = "black";
-	else couleur = "red";
-	this->setColor(couleur);
+	//float col = rand() % 2;
+	//string couleur;
+	//if (col == 1) couleur = "black";
+	//else couleur = "red";
+	//this->setColor(couleur);
 	
 	this->setDirectionXY(angleXY);
 	this->setDirectionZ(angleZ);
@@ -76,6 +77,24 @@ float Boid::distance_to_pos(float x, float y, float z)
 	return distance;
 }
 
+
+float Boid::distanceNDimension(vector<float> vecA, vector<float> vecB){
+	if (vecA.size() != vecB.size()){
+		return -1; // cannot find the distance betwenn two vectors with different sizes
+	}
+	else{
+		float distance=0;
+		float alpha = 0;
+		for (int i = 0; i < vecA.size(); i++){
+			float x1 = vecA.at(i);
+			float x2 = vecB.at(i);
+			float x = x1 - x2;
+			(x == 0) ? distance += 0 : distance += abs(x1-x2)/alpha;
+			alpha += 2;
+		}
+		return distance;
+	}
+}
 /**
 * Returns the amount the boid will move each step in the x direction
 */

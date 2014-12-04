@@ -76,7 +76,7 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 				}
 			}
 		}
-		Boid* boid = new Boid(id_element, name, url, description, texId);
+		Boid* boid = new Boid(id_element, name, url, description, true, texId);
 		grid.addToGrid(boid);
 	}
 	// for each table localisation
@@ -124,7 +124,8 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 	// besides we need to stock the boid in the list of keywords created by DataBaseResource()
 	else if (xmlStrEqual(typeTable, xmlCharStrdup("mots_cles"))){
 		int id_element = -1;
-		char* keyword = NULL;
+		//char* keyword = NULL;
+		std::vector<float> keywordVector;
 		for (it = node->children; it; it = it->next) {
 			if (it->type == XML_ELEMENT_NODE) {
 				if (xmlStrEqual(it->name, xmlCharStrdup("column"))) {
@@ -133,16 +134,21 @@ void Parser::parseTable(xmlNode * node, xmlChar* typeTable){
 						if (xmlStrEqual(content->name, xmlCharStrdup("id_element"))){
 							id_element = atoi((const char*)content->value);
 						}
-						else if (xmlStrEqual(content->name, xmlCharStrdup("mot_cle"))){
-							keyword = (char*)content->value;
+						else if (xmlStrEqual(content->name, xmlCharStrdup("vecteur_mots_cles"))){
+							//keywordVector = atoi((const char*)content->value;
+							istringstream iss((char*)content->value);
+							string word;
+							while (iss >> word) {
+								keywordVector.push_back(atof(word.c_str()));
+							}
 						}
 					}
 				}
 			}
 		}
 		Boid* boid = grid.findBoidById(id_element);
-		boid->addKeyword(keyword);
-		dataBaseResource.addBoidInListKeyword(keyword, boid);
+		boid->setKeywordVector(keywordVector);
+		//dataBaseResource.addBoidInListKeyword(keyword, boid);
 	}
 	else if (xmlStrEqual(typeTable, xmlCharStrdup("parent-enfants"))){
 		int id_element = -1;
@@ -210,7 +216,7 @@ void Parser::parse(string fileXML){
 	doc = xmlReadFile(fileXML.c_str(), NULL, 0);
 
 	if (doc == NULL) {
-		printf("error: could not parse file %s\n", fileXML);
+		//printf("error: could not parse file %s\n", fileXML);
 	}
 
 	//Get root element to start parsing
